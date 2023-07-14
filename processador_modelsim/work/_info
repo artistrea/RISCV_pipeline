@@ -1,0 +1,161 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/ModelSim/OAC/XREGS
+Eimm32_generator
+Z0 w1689346429
+Z1 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 2
+Z4 dC:/ModelSim/processador_modelsim
+Z5 8C:/ModelSim/processador_modelsim/imm32_generator.vhdl
+Z6 FC:/ModelSim/processador_modelsim/imm32_generator.vhdl
+l0
+L6 1
+Vih8en1oK0LE5d@fQJ?69b0
+!s100 AVF9fd3oiUCEfh^8>AQa`3
+Z7 OV;C;2020.1;71
+32
+Z8 !s110 1689348863
+!i10b 1
+Z9 !s108 1689348863.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/ModelSim/processador_modelsim/imm32_generator.vhdl|
+Z11 !s107 C:/ModelSim/processador_modelsim/imm32_generator.vhdl|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1 CvgOpt 0
+Aimm32_generatorarch
+R1
+R2
+R3
+DEx4 work 15 imm32_generator 0 22 ih8en1oK0LE5d@fQJ?69b0
+!i122 2
+l19
+L13 36
+Vf4cW]I31iMbU;Y8kZLn_E2
+!s100 6E8C6ihh4CD=GY<aO6jVC0
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Emux4x1
+Z14 w1689348766
+R2
+R3
+!i122 0
+R4
+Z15 8C:/ModelSim/processador_modelsim/mux4x1.vhdl
+Z16 FC:/ModelSim/processador_modelsim/mux4x1.vhdl
+l0
+L5 1
+V9m2b2g:DnhB?I4RTLY:6[1
+!s100 >S8RmJKi<OSbkVA<mQT1H1
+R7
+32
+Z17 !s110 1689348862
+!i10b 1
+Z18 !s108 1689348862.000000
+Z19 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/ModelSim/processador_modelsim/mux4x1.vhdl|
+Z20 !s107 C:/ModelSim/processador_modelsim/mux4x1.vhdl|
+!i113 1
+R12
+R13
+Amux4x1_arch1
+R2
+R3
+DEx4 work 6 mux4x1 0 22 9m2b2g:DnhB?I4RTLY:6[1
+!i122 0
+l15
+L14 7
+V1V[;cic:3lJ5c@EaLZZhD0
+!s100 S4:i7@Sk4@Hee78`84H8d0
+R7
+32
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 1
+R12
+R13
+Eula
+w1689345471
+R1
+R2
+R3
+!i122 3
+R4
+8C:/ModelSim/processador_modelsim/ULA.vhdl
+FC:/ModelSim/processador_modelsim/ULA.vhdl
+l0
+L5 1
+VzL<G3=C[Vo[ZL2Oe6MF<E1
+!s100 9XbP^=MlNzOND[0Re8B[c0
+R7
+32
+R8
+!i10b 1
+R9
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/ModelSim/processador_modelsim/ULA.vhdl|
+!s107 C:/ModelSim/processador_modelsim/ULA.vhdl|
+!i113 1
+R12
+R13
+Exregs
+Z21 w1689348314
+R1
+R2
+R3
+!i122 1
+R4
+Z22 8C:/ModelSim/processador_modelsim/xregs.vhdl
+Z23 FC:/ModelSim/processador_modelsim/xregs.vhdl
+l0
+L5 1
+VlbW^]V=fCF[eI>Y?eCY@20
+!s100 X<MRRAeZ<7Hol;0FDRzCK2
+R7
+32
+R8
+!i10b 1
+R9
+Z24 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/ModelSim/processador_modelsim/xregs.vhdl|
+Z25 !s107 C:/ModelSim/processador_modelsim/xregs.vhdl|
+!i113 1
+R12
+R13
+Axregs_arch
+R1
+R2
+R3
+DEx4 work 5 xregs 0 22 lbW^]V=fCF[eI>Y?eCY@20
+!i122 1
+l18
+L15 15
+V8[1MOE?mg1UQHkT9^b_cF1
+!s100 NzAKg>H00V]HjaI]onYPR3
+R7
+32
+R8
+!i10b 1
+R9
+R24
+R25
+!i113 1
+R12
+R13

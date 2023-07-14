@@ -1,0 +1,10 @@
+# Reading pref.tcl
+# OpenFile C:/ModelSim/RISCV_pipeline/modelsim/RISCV_pipeline_cpu.mpf
+# Loading project RISCV_pipeline_cpu
+# Compile of mux4x1.vhd was successful.
+# Compile of ULA.vhd failed with 3 errors.
+# Compile of imm32_generator.vhd was successful.
+# Compile of processador.vhd failed with 1 errors.
+# Compile of xregs.vhd was successful.
+# Compile of adder.vhd failed with 1 errors.
+# 6 compiles, 3 failed with 5 errors.
