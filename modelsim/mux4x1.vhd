@@ -1,7 +1,8 @@
 library ieee;
 
 use ieee.std_logic_1164.all;
-
+-- 4x1 necessário caso sejam feitas as otimizações
+-- 2x1 pode ser usado caso elas não sejam feitas
 entity mux4x1 is
     port(
         D0, D1, D2, D3 : in std_logic_vector(31 downto 0);

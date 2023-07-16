@@ -5,7 +5,16 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity RISCV_pipeline is
     port(
-        Y : out std_logic_vector(31 downto 0);
+        CLK : in std_logic;
+        -- connection to external instruction memory
+        instruction : in std_logic_vector(31 downto 0);
+        instruction_mem_addr : out std_logic_vector(31 downto 0);
+        -- connection to external data memory
+        data_mem_addr : out std_logic_vector(31 downto 0);
+        data_mem_write : out std_logic;
+        data_mem_read : out std_logic;
+        data_mem_write_data : out std_logic_vector(31 downto 0);
+        data_mem_read_data : in std_logic_vector(31 downto 0)
     );
 end RISCV_pipeline;
 
@@ -33,8 +42,20 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
         );
     end component;
 
-begin
+    component XREGS is
+        -- melhor se definido a nivel de processador e utilizado em todos os componentes:
+        generic (WSIZE : natural := 32);
+        port (
+            clk, wren : in std_logic;
+            rs1, rs2, rd : in std_logic_vector(4 downto 0);
+            data : in std_logic_vector(WSIZE-1 downto 0);
+            ro1, ro2 : out std_logic_vector(WSIZE-1 downto 0) := (others => '0')
+        );
+    end component;
 
-    Y <= (others => '0');
+begin
+    -- fetch
+    
+
 end RISCV_pipeline_arch;
 
