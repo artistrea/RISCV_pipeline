@@ -1,4 +1,4 @@
-./modelsim/RISCV_pipeline_cpu.cr.mti
-./modelsim/RISCV_pipeline_cpu.mpf
-./modelsim/transcript
+modelsim/RISCV_pipeline_cpu.cr.mti
+modelsim/RISCV_pipeline_cpu.mpf
+modelsim/transcript
 .vscode/
