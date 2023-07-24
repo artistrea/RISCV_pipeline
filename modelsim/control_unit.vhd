@@ -42,7 +42,7 @@ begin
 
     process(format, instr)
     begin
-
+            
     end process;
 
 end control_unit_arch;

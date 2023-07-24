@@ -34,6 +34,14 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
         );
     end component;
 
+    component register32 is
+        port(
+            clk, write_enabled : in std_logic;
+            data_in : in std_logic_vector(31 downto 0);
+            data_out : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
     component ULA is
         port(
             A, B : in std_logic_vector(31 downto 0);
@@ -53,8 +61,46 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
         );
     end component;
 
+    -- wires:
+    signal nextPC_IF, nextPC0_IF, nextPC1_IF, curPC_IF : std_logic_vector(31 downto 0) := (others => '0');
+    signal PCSrc : std_logic_vector(1 downto 0) := (others => '0');
+
+    signal curPC_ID : std_logic_vector(31 downto 0) := (others => '0');
 begin
     -- fetch
+    mux_IF : mux4x1 port map(
+        D0 => nextPC0_IF,
+        D1 => nextPC1_IF,
+        D2 => (others => '0'),
+        D3 => (others => '0'),
+        SEL => PCSrc,
+        Y => nextPC_IF
+    );
+
+    PC : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => nextPC_IF,
+        data_out => curPC_IF
+    );
+
+    instruction_mem_addr <= curPC_IF;
+
+    adder_IF : adder port map(
+        A => curPC_IF,
+        B => std_logic_vector(to_signed(4, 32)),
+        Y => nextPC0_IF
+    );
+
+
+    fetchPC_regist : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => curPC_IF,
+        data_out => curPC_ID
+    );
+
+    -- decode
     
 
 end RISCV_pipeline_arch;
