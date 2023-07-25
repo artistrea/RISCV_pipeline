@@ -2,4 +2,5 @@ modelsim/RISCV_pipeline_cpu.cr.mti
 modelsim/RISCV_pipeline_cpu.mpf
 modelsim/transcript
 modelsim/vsim.wlf
+modelsim/work/
 .vscode/
