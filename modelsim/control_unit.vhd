@@ -27,7 +27,6 @@ architecture control_unit_arch of control_unit is
     signal opcode : std_logic_vector(6 downto 0);
     signal funct3 : std_logic_vector(2 downto 0);
     signal funct7 : std_logic_vector(6 downto 0);
-    constant NON_ZERO_FUNCT7 : std_logic_vector(6 downto 0) := "0100000";
 begin
     opcode <= instr(6 downto 0);
     funct3 <= instr(14 downto 12);
@@ -37,9 +36,9 @@ begin
     begin
         case opcode is
             when "0110011" => -- format <= R_type;
-                if funct7 = NON_ZERO_FUNCT7 and funct3 = "000" then
+                if funct7 = "0100000" and funct3 = "000" then
                     instruction_is <= INS_SUB;
-                elsif funct7 = NON_ZERO_FUNCT7 then
+                elsif funct7 = "0100000" then
                     instruction_is <= Unknown_instruction; -- SRA não especificado no trabalho
                 else
                     case funct3 is
@@ -54,14 +53,53 @@ begin
                         when others => instruction_is <= Unknown_instruction;
                     end case;
                 end if;
-            -- when "0000011" => format <= I_type;
-            -- when "0010011" => format <= I_type;
-            -- when "1100111" => format <= I_type;
-            when "0100011" => instruction_is <= INS_ADDi;
-            when "1100011" => instruction_is <= INS_ADDi;
-            when "0110111" => instruction_is <= INS_ADDi;
-            when "0010111" => instruction_is <= INS_ADDi;
-            when "1101111" => instruction_is <= INS_ADDi;
+            when "0000011" => -- format <= I_type;
+                case funct3
+                    when "010" => instruction_is <= INS_LW;
+                    when others =>instruction_is <= Unknown_instruction;
+                end case;
+            when "0010011" => -- format <= I_type;
+                case funct3 is
+                    when "000" => instruction_is <= INS_ADDi;
+                    when "010" => instruction_is <= INS_SLTi;
+                    when "011" => instruction_is <= INS_SLTUi;
+                    when "100" => instruction_is <= INS_XORi;
+                    when "110" => instruction_is <= INS_ORi;
+                    when "111" => instruction_is <= INS_ANDi;
+                    when "001" => instruction_is <= INS_SLLi;
+                    when "101" => if funct7 = "0000000" then
+                                 instruction_is <= INS_SRLi;
+                                else
+                                    instruction_is <= INS_SRAi; 
+                                end if;
+                    when others => instruction_is <= Unknown_instruction;
+                end case;
+            when "1100111" => -- format <= I_type;
+                case funct3 is
+                    when "000" => instruction_is <= INS_JALR;
+                    when others => instruction_is <= Unknown_instruction;
+                end case;
+            when "0100011" => -- format <= S_type;
+                case funct3 is
+                    when "010" => instruction_is <= INS_SW;
+                    when others => instruction_is <= Unknown_instruction;
+                end case;
+            when "1100011" => -- format <= SB_type;
+                case funct3 is
+                    when "000" => instruction_is <= INS_BEQ;
+                    when "001" => instruction_is <= INS_BNE;
+                    when "100" => instruction_is <= INS_BLT;
+                    when "101" => instruction_is <= INS_BGE;
+                    when "110" => instruction_is <= INS_BLTU;
+                    when "111" => instruction_is <= INS_BGEU;
+                    when others => instruction_is <= Unknown_instruction;
+                end case;
+            when "0110111" => -- format <= U_type;
+                instruction_is <= INS_LUI;
+            when "0010111" => -- format <= U_type;
+                instruction_is <= INS_AUIPC;
+            when "1101111" => -- format <= UJ_type;
+                instruction_is <= INS_JAL;
             when others => instruction_is <= Unknown_instruction;
         end case;
     end process;
