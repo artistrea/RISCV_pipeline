@@ -6,7 +6,7 @@ entity ULA is
     port (
         opcode : in std_logic_vector(3 downto 0);
         A, B : in std_logic_vector(31 downto 0);
-        Z : out std_logic_vector(31 downto 0);
+        Y : out std_logic_vector(31 downto 0);
         zero : out std_logic
     );
 end ULA;
@@ -20,7 +20,7 @@ architecture ULA_arch of ULA is
     );
     signal operation : OPERATIONS;
 begin
-    Z <= out32;
+    Y <= out32;
     
     gen_zero: process (out32) begin
         if (out32 = X"00000000") then zero <= '1'; else zero <= '0'; end if;

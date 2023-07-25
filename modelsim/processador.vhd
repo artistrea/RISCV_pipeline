@@ -44,9 +44,10 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
 
     component ULA is
         port(
+            opcode : in std_logic_vector(3 downto 0);
             A, B : in std_logic_vector(31 downto 0);
             Y : out std_logic_vector(31 downto 0);
-            Z : out std_logic
+            zero : out std_logic
         );
     end component;
 
@@ -90,18 +91,21 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
 
     signal curPC_ID, imm_ID : std_logic_vector(31 downto 0) := (others => '0');
     signal instruction_ID : std_logic_vector(31 downto 0) := (others => '0');
-    signal rs1_ID,rd_ID, rs2_ID, ro1_ID, ro2_ID, rd_WB : std_logic_vector(4 downto 0) := (others => '0');
-    
-    signal branch_ID : std_logic := '0';
-    signal regWrite_ID : std_logic := '0';
-    signal memRead_ID : std_logic := '0';
-    signal memWrite_ID : std_logic := '0';
-    signal memToReg_ID : std_logic := '0';
-    signal ALUOp_ID : std_logic_vector(3 downto 0) := (others => '0');
-    signal ALUSrc_ID : std_logic := '0';
+    signal rs1_ID,rd_ID, rs2_ID, rd_WB : std_logic_vector(4 downto 0) := (others => '0');
+    signal ro1_ID, ro2_ID : std_logic_vector(31 downto 0) := (others => '0');
 
-    signal curPC_EX, imm_EX : std_logic_vector(31 downto 0) := (others => '0');
-    signal ro1_EX, ro2_EX : std_logic_vector(31 downto 0) := (others => '0');
+    signal ALUSrc_ID, branch_ID, regWrite_ID, memRead_ID, memWrite_ID, memToReg_ID : std_logic := '0';
+    signal ALUOp_ID : std_logic_vector(3 downto 0) := (others => '0');
+
+        
+    signal ALUSrc_EX, branch_EX, regWrite_EX, memRead_EX, memWrite_EX, memToReg_EX : std_logic := '0';
+    signal ALUOp_EX : std_logic_vector(3 downto 0) := (others => '0');
+    signal ALUResult_EX : std_logic_vector(31 downto 0) := (others => '0');
+    signal ALUZero_EX : std_logic := '0';
+
+
+    signal curPC_EX, imm_EX, branchAddress_EX : std_logic_vector(31 downto 0) := (others => '0');
+    signal ro1_EX, ro2_EX, ULAB_EX : std_logic_vector(31 downto 0) := (others => '0');
     signal funct7_EX : std_logic := '0';
     signal funct3_EX : std_logic_vector(2 downto 0) := (others => '0');
     signal rd_EX : std_logic_vector(4 downto 0) := (others => '0');
@@ -188,11 +192,54 @@ begin
         mem_to_reg => memToReg_ID
     );
 
+    controlRegister : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in(0) => memToReg_ID,
+        data_in(1) => regWrite_ID,
+        data_in(2) => memWrite_ID,
+        data_in(3) => memRead_ID,
+        data_in(4) => branch_ID,
+        data_in(8 downto 5) => ALUOp_ID,
+        data_in(9) => ALUSrc_ID,
+        data_in(31 downto 10) => ignoreBits(31 downto 10),
+        
+        data_out(0) => memToReg_EX,
+        data_out(1) => regWrite_EX,
+        data_out(2) => memWrite_EX,
+        data_out(3) => memRead_EX,
+        data_out(4) => branch_EX,
+        data_out(8 downto 5) => ALUOp_EX,
+        data_out(9) => ALUSrc_EX,
+        data_out(31 downto 10) => ignoreBits(31 downto 10)
+    );
+
+    ro1Register_ID_EX : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => ro1_ID,
+        data_out => ro1_EX
+    );
+
+    ro2Register_ID_EX : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => ro2_ID,
+        data_out => ro2_EX
+    );
+    
     immmRegister_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
         data_in => imm_ID,
         data_out => imm_EX
+    );
+
+    PCRdRegister_ID_EX : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => curPC_ID,
+        data_out => curPC_EX
     );
 
     functsAndRdRegister_ID_EX : register32 port map(
@@ -209,7 +256,30 @@ begin
     );
 
     -- execute
-    
+    branchCalculator_EX : adder port map(
+        A => curPC_EX,
+        B => imm_EX(30 downto 0) & "0",
+        Y => branchAddress_EX
+    );
+
+    mux_EX : mux4x1 port map(
+        D0 => ro2_EX,
+        D1 => imm_EX,
+        D2 => ignoreBits,
+        D3 => ignoreBits,
+        SEL => '0' & ALUSrc_EX,
+        Y => ULAB_EX
+    );
+
+    ula_EX : ULA port map(
+        opcode => ALUOp_EX,
+        A => ro1_EX,
+        B => ULAB_EX,
+        Y => ALUResult_EX,
+        zero => ALUZero_EX
+    );
+
+
     
 
 
