@@ -3,6 +3,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
+-- TODO: implementar hazard control
 entity RISCV_pipeline is
     port(
         CLK : in std_logic;
@@ -112,12 +113,15 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
 
     
     signal branch_MEM, regWrite_MEM, memRead_MEM, memWrite_MEM, memToReg_MEM : std_logic := '0';
+
+    signal shouldBranch_MEM : std_logic := '0';
     
     signal ALUResult_MEM : std_logic_vector(31 downto 0) := (others => '0');
     signal ALUZero_MEM : std_logic := '0';
     signal ro2_MEM, rd_MEM, branchAddress_MEM : std_logic_vector(31 downto 0) := (others => '0');
 
-    signal xregsData_WB : std_logic_vector(31 downto 0) := (others => '0');
+    signal memToReg_WB, regWrite_WB : std_logic := '0';
+    signal xregsData_WB, memData_WB : std_logic_vector(31 downto 0) := (others => '0');
     signal wren_WB : std_logic := '0';
 
 
@@ -185,6 +189,7 @@ begin
         ro2 => ro2_ID
     );
 
+    -- TODO: implementar unidade de controle
     controlUnit_ID : control_unit port map(
         instr => instruction_ID,
         -- ex
@@ -337,14 +342,46 @@ begin
         data_out => ALUResult_MEM
     );
 
+
+    -- memory access
+    data_mem_addr <= ALUResult_MEM;
+    data_mem_write <= memWrite_MEM;
+    data_mem_read <= memRead_MEM;
+    data_mem_write_data <= ro2_MEM;
+
     
-
-
-    
-
-
+    -- TODO: implementar branch direito
+    shouldBranch_MEM <= branch_MEM and ALUZero_MEM; -- beq, should have a component for this
 
     
+    controlRegister_MEM_WB : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in(0) => memToReg_MEM,
+        data_in(1) => regWrite_MEM,
+        data_in(31 downto 2) => ignoreBits(31 downto 2),
 
+        data_out(0) => memToReg_WB,
+        data_out(1) => regWrite_WB,
+        data_out(31 downto 2) => ignoreBits(31 downto 2)
+    );
+
+    memDataRegister_MEM_WB : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => data_mem_read_data,
+        data_out => memData_WB
+    );
+
+    -- write back
+
+    mux_WB : mux4x1 port map(
+        D0 => ALUResult_MEM,
+        D1 => memData_WB,
+        D2 => ignoreBits,
+        D3 => ignoreBits,
+        SEL => '0' & memToReg_WB,
+        Y => xregsData_WB
+    );
 end RISCV_pipeline_arch;
 
