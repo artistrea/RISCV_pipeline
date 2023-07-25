@@ -10,25 +10,25 @@ z2
 cModel Technology
 dC:/intelFPGA_lite/20.1
 Eadder
-Z0 w1689382544
+Z0 w1690148583
 Z1 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 38
-Z4 dC:/ModelSim/RISCV_pipeline/modelsim
-Z5 8C:/ModelSim/RISCV_pipeline/modelsim/adder.vhd
-Z6 FC:/ModelSim/RISCV_pipeline/modelsim/adder.vhd
+!i122 184
+Z4 dC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim
+Z5 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/adder.vhd
+Z6 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/adder.vhd
 l0
 L5 1
 VTYBgDY^W@UM1SCPH8V0B`2
 !s100 ^D]a2kWRF26GE5[YYY;N]1
 Z7 OV;C;2020.1;71
 33
-Z8 !s110 1689384242
+Z8 !s110 1690311360
 !i10b 1
-Z9 !s108 1689384242.000000
-Z10 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/adder.vhd|
-Z11 !s107 C:/ModelSim/RISCV_pipeline/modelsim/adder.vhd|
+Z9 !s108 1690311360.000000
+Z10 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/adder.vhd|
+Z11 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/adder.vhd|
 !i113 1
 Z12 o-work work -2008 -explicit
 Z13 tExplicit 1 CvgOpt 0
@@ -37,7 +37,7 @@ R1
 R2
 R3
 DEx4 work 5 adder 0 22 TYBgDY^W@UM1SCPH8V0B`2
-!i122 38
+!i122 184
 l17
 L15 6
 VGdh5zn?Gj8566lL6VVFn63
@@ -53,25 +53,25 @@ R11
 R12
 R13
 Econtrol_unit
-Z14 w1689384136
+R0
 R1
 R2
 R3
-!i122 39
+!i122 185
 R4
-Z15 8C:/ModelSim/RISCV_pipeline/modelsim/control_unit.vhd
-Z16 FC:/ModelSim/RISCV_pipeline/modelsim/control_unit.vhd
+Z14 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/control_unit.vhd
+Z15 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/control_unit.vhd
 l0
 L5 1
 V^_GTclEmW1z=bhSn[9^M=0
 !s100 W3`@`Qh;RWB@@YFGKLihe3
 R7
 33
-R8
+Z16 !s110 1690311361
 !i10b 1
 R9
-Z17 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/control_unit.vhd|
-!s107 C:/ModelSim/RISCV_pipeline/modelsim/control_unit.vhd|
+Z17 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/control_unit.vhd|
+Z18 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/control_unit.vhd|
 !i113 1
 R12
 R13
@@ -80,41 +80,41 @@ R1
 R2
 R3
 DEx4 work 12 control_unit 0 22 ^_GTclEmW1z=bhSn[9^M=0
-!i122 39
+!i122 185
 l27
 L21 28
 VjQXX5SLJAIj[z;XeCPSMi3
 !s100 ]_j0Kn9J6CIZ?9n_liHnD1
 R7
 33
-R8
+R16
 !i10b 1
 R9
 R17
-Z18 !s107 C:/ModelSim/RISCV_pipeline/modelsim/control_unit.vhd|
+R18
 !i113 1
 R12
 R13
 Eimm32_generator
-Z19 w1689349850
+Z19 w1689370087
 R1
 R2
 R3
-!i122 36
+!i122 186
 R4
-Z20 8C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd
-Z21 FC:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd
+Z20 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/imm32_generator.vhd
+Z21 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/imm32_generator.vhd
 l0
 L7 1
 VGRi;NPg0Q9Em;lkHWla@13
 !s100 8YilU8JIdOgXJQo3abQ:;1
 R7
 33
-R8
+R16
 !i10b 1
-R9
-Z22 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd|
-Z23 !s107 C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd|
+Z22 !s108 1690311361.000000
+Z23 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/imm32_generator.vhd|
+Z24 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/imm32_generator.vhd|
 !i113 1
 R12
 R13
@@ -123,82 +123,252 @@ R1
 R2
 R3
 DEx4 work 15 imm32_generator 0 22 GRi;NPg0Q9Em;lkHWla@13
-!i122 36
+!i122 186
 l20
 L14 36
 Vl6g75glc?O`Jf]oCAj2g33
 !s100 0?XKnF:db4>F2nBg7@@io1
 R7
 33
-R8
+R16
 !i10b 1
-R9
 R22
 R23
+R24
+!i113 1
+R12
+R13
+Ememory
+Z25 w1690311017
+R1
+R2
+R3
+!i122 192
+R4
+Z26 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory.vhd
+Z27 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory.vhd
+l0
+L5 1
+VjHHSWkFjg09i1Tl7K2D521
+!s100 01[oGdhkCLUfHL<k=[f1[3
+R7
+33
+Z28 !s110 1690311362
+!i10b 1
+R22
+Z29 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory.vhd|
+Z30 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory.vhd|
+!i113 1
+R12
+R13
+Amemory_arch
+R1
+R2
+R3
+DEx4 work 6 memory 0 22 jHHSWkFjg09i1Tl7K2D521
+!i122 192
+l19
+L16 17
+VEzM9?O3I;4BD]1BdazOJk3
+!s100 @k[X1m1li4WC:KUJ9A>]11
+R7
+33
+R28
+!i10b 1
+R22
+R29
+R30
+!i113 1
+R12
+R13
+Ememory_tb
+Z31 w1690311348
+R1
+R2
+R3
+!i122 193
+R4
+Z32 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory_tb.vhd
+Z33 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory_tb.vhd
+l0
+L6 1
+VAgU86FP>dBHSXz1a>Q2aN0
+!s100 SIKFJKzWPT4kF4ePSjgXS3
+R7
+33
+R28
+!i10b 1
+Z34 !s108 1690311362.000000
+Z35 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory_tb.vhd|
+Z36 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/memory_tb.vhd|
+!i113 1
+R12
+R13
+Amemory_tb_arch
+R1
+R2
+R3
+Z37 DEx4 work 9 memory_tb 0 22 AgU86FP>dBHSXz1a>Q2aN0
+!i122 193
+l28
+Z38 L9 61
+ViHOVkEGO?;;J1MNbfbIST3
+!s100 A3YG25Y:ETafb=YLOkiN00
+R7
+33
+R28
+!i10b 1
+R34
+R35
+R36
 !i113 1
 R12
 R13
 Emux4x1
-Z24 w1689349817
+R0
 R2
 R3
-!i122 34
+!i122 187
 R4
-Z25 8C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd
-Z26 FC:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd
+Z39 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/mux4x1.vhd
+Z40 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/mux4x1.vhd
 l0
-L5 1
-VjlJb3L;]UDA8lIAzc]QS91
-!s100 >S8RmJKi<OSbkVA<mQT1H1
+L6 1
+VTECh]MWnnL=WIeZobN2Z93
+!s100 [aQoP=CH_CX4LAV72O7me3
 R7
 33
-R8
+R16
 !i10b 1
-Z27 !s108 1689384241.000000
-Z28 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd|
-Z29 !s107 C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd|
+R22
+Z41 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/mux4x1.vhd|
+Z42 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/mux4x1.vhd|
 !i113 1
 R12
 R13
 Amux4x1_arch1
 R2
 R3
-DEx4 work 6 mux4x1 0 22 jlJb3L;]UDA8lIAzc]QS91
-!i122 34
-l15
-L14 7
-Vg<E4dac[lQNlK4i=OiO4@1
-!s100 S4:i7@Sk4@Hee78`84H8d0
+DEx4 work 6 mux4x1 0 22 TECh]MWnnL=WIeZobN2Z93
+!i122 187
+l16
+L15 7
+VAXZ74[<;Ol;VZ2F:g6S4f0
+!s100 QF]M8JZ62FDQS3l2Q@RiI0
 R7
 33
-R8
+R16
 !i10b 1
-R27
-R28
-R29
+R22
+R41
+R42
+!i113 1
+R12
+R13
+Eregister32
+Z43 w1690221594
+R2
+R3
+!i122 189
+R4
+Z44 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/register32.vhd
+Z45 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/register32.vhd
+l0
+L4 1
+V0cIJSM7?NgJ9Ne?g6gELU1
+!s100 4j>KM6Q`?cz9OGGlkT`Qm2
+R7
+33
+R16
+!i10b 1
+R22
+Z46 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/register32.vhd|
+Z47 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/register32.vhd|
+!i113 1
+R12
+R13
+Aregister32_arch1
+R2
+R3
+DEx4 work 10 register32 0 22 0cIJSM7?NgJ9Ne?g6gELU1
+!i122 189
+l14
+L13 9
+VKlFAfU_^cC6aFa^28Q`@P2
+!s100 [lzM4ZAOh?SS9GZ]T;k:H2
+R7
+33
+R16
+!i10b 1
+R22
+R46
+R47
+!i113 1
+R12
+R13
+Eriscv_pipeline
+R0
+R1
+R2
+R3
+!i122 188
+R4
+Z48 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/processador.vhd
+Z49 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/processador.vhd
+l0
+L6 1
+VC0MM:00knNKmUnJOc0dm43
+!s100 QUzk4MK7LPOmf^[IFPaTk1
+R7
+33
+R16
+!i10b 1
+R22
+Z50 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/processador.vhd|
+Z51 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/processador.vhd|
+!i113 1
+R12
+R13
+Ariscv_pipeline_arch
+R1
+R2
+R3
+DEx4 work 14 riscv_pipeline 0 22 C0MM:00knNKmUnJOc0dm43
+!i122 188
+l56
+L21 40
+ViTbf9Y2<SN>oznM4I=Ddc3
+!s100 [Q7k]Z3AWo=^e;bXlP95T0
+R7
+33
+R16
+!i10b 1
+R22
+R50
+R51
 !i113 1
 R12
 R13
 Eula
-Z30 w1689349584
+Z52 w1690221592
 R1
 R2
 R3
-!i122 35
+!i122 191
 R4
-Z31 8C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd
-Z32 FC:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd
+Z53 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/ULA.vhd
+Z54 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/ULA.vhd
 l0
 L5 1
 V>BfWckEXXnakHT0heA@641
 !s100 9XbP^=MlNzOND[0Re8B[c0
 R7
 33
-R8
+R16
 !i10b 1
-R9
-Z33 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd|
-Z34 !s107 C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd|
+R22
+Z55 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/ULA.vhd|
+Z56 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/ULA.vhd|
 !i113 1
 R12
 R13
@@ -207,41 +377,41 @@ R1
 R2
 R3
 DEx4 work 3 ula 0 22 >BfWckEXXnakHT0heA@641
-!i122 35
+!i122 191
 l22
 L14 77
 V`EnGRK]R58mbchJFzUd]m3
 !s100 h5:VH1QC5;V_BU5;eWz<Y0
 R7
 33
-R8
+R16
 !i10b 1
-R9
-R33
-R34
+R22
+R55
+R56
 !i113 1
 R12
 R13
 Exregs
-Z35 w1689349882
+R19
 R1
 R2
 R3
-!i122 37
+!i122 190
 R4
-Z36 8C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd
-Z37 FC:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd
+Z57 8C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/xregs.vhd
+Z58 FC:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/xregs.vhd
 l0
 L6 1
 VQTVeTCOBK]BAK5QznaM:E2
 !s100 KXnGjD9MN[g@g[O_OkS]]3
 R7
 33
-R8
+R16
 !i10b 1
-R9
-Z38 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd|
-Z39 !s107 C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd|
+R22
+Z59 !s90 -reportprogress|300|-work|work|-2008|-explicit|C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/xregs.vhd|
+Z60 !s107 C:/Users/nicpa/OneDrive/Documentos/RISCV_pipeline/modelsim/xregs.vhd|
 !i113 1
 R12
 R13
@@ -250,18 +420,18 @@ R1
 R2
 R3
 DEx4 work 5 xregs 0 22 QTVeTCOBK]BAK5QznaM:E2
-!i122 37
+!i122 190
 l19
 L16 15
 Vj@Ao=6n[gP8k@8gQ69Cae1
 !s100 0JR;5:486GWM7];A7OlH72
 R7
 33
-R8
+R16
 !i10b 1
-R9
-R38
-R39
+R22
+R59
+R60
 !i113 1
 R12
 R13

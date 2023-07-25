@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity memory is
     port (
@@ -7,8 +8,8 @@ entity memory is
         clk : in std_logic;
         write_signal : in std_logic;
         read_signal : in std_logic;
-        write_data : in std_logic(31 downto 0);
-        read_data : out std_logic(31 downto 0)
+        write_data : in std_logic_vector(31 downto 0);
+        read_data : out std_logic_vector(31 downto 0)
     );
 end memory;
 
@@ -19,12 +20,12 @@ begin
     on_clk_up : process(clk)
     begin
         if rising_edge(clk) then
-            if write_signal then
-                mem_data(address) <= write_data;
-                read_data <= mem_data(address);
+            if write_signal = '1' then
+                mem_data(to_integer(unsigned(address))) <= write_data;
+                read_data <= mem_data(to_integer(unsigned(address)));
             end if;
-            if read_data then
-                read_data <= mem_data(address);
+            if read_signal = '1' then
+                read_data <= mem_data(to_integer(unsigned(address)));
             end if;
         end if;
     end process on_clk_up;
