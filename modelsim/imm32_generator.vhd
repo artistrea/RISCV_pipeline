@@ -27,6 +27,7 @@ architecture imm32_generatorArch of imm32_generator is
                 when "0100011" => format <= S_type;
                 when "1100011" => format <= SB_type;
                 when "0110111" => format <= U_type;
+                when "0010111" => format <= U_type;
                 when "1101111" => format <= UJ_type;
                 when others => format <= Unknown_type;
             end case;
