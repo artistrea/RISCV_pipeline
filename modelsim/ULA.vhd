@@ -33,11 +33,11 @@ begin
             when AND_OP => out32 <= A and B;
             when OR_OP => out32 <= A or B;
             when XOR_OP => out32 <= A xor B;
-            when SLL_OP => out32 <= std_logic_vector(unsigned(A) sll to_integer(unsigned(B)));
+            when SLL_OP => out32 <= std_logic_vector(unsigned(A) sll to_integer(unsigned(B(4 downto 0))));
             when SLA_OP => out32 <= 
-                A(31) & std_logic_vector(resize(unsigned(A) sll to_integer(unsigned(B)), 31));
-            when SRL_OP => out32 <= std_logic_vector(unsigned(A) srl to_integer(unsigned(B)));
-            when SRA_OP => out32 <= std_logic_vector(signed(A) sra to_integer(unsigned(B)));
+                A(31) & std_logic_vector(resize(unsigned(A) sll to_integer(unsigned(B(4 downto 0))), 31));
+            when SRL_OP => out32 <= std_logic_vector(unsigned(A) srl to_integer(unsigned(B(4 downto 0))));
+            when SRA_OP => out32 <= std_logic_vector(signed(A) sra to_integer(unsigned(B(4 downto 0))));
             when SLT_OP => if (signed(A) < signed(B))
                 then out32 <= x"00000001";
                 else out32 <= x"00000000";

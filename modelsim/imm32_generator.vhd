@@ -3,7 +3,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- [ERRO]: consertar instruções de shift (shamt é menor que o imediato)
 entity imm32_generator is
     port(
         instr : in std_logic_vector(31 downto 0);
@@ -22,7 +21,6 @@ architecture imm32_generatorArch of imm32_generator is
         begin
             case instr(6 downto 0) is
                 when "0110011" => format <= R_type;
-                -- [ERRO] Por aqui:
                 when "0000011" => format <= I_type;
                 when "0010011" => format <= I_type;
                 when "1100111" => format <= I_type;
