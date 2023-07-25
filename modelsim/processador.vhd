@@ -61,11 +61,57 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
         );
     end component;
 
+    component imm32_generator is
+        port(
+            instruction : in std_logic_vector(31 downto 0);
+            imm : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
+    component control_unit is
+        port(
+            instr : in std_logic_vector(31 downto 0);
+            -- ex
+            alu_op : out std_logic_vector(3 downto 0);
+            alu_src : out std_logic;
+            -- mem
+            mem_read : out std_logic;
+            mem_write : out std_logic;
+            branch : out std_logic;
+            -- wb
+            reg_write : out std_logic;
+            mem_to_reg : out std_logic
+        );
+    end component;
+
     -- wires:
     signal nextPC_IF, nextPC0_IF, nextPC1_IF, curPC_IF : std_logic_vector(31 downto 0) := (others => '0');
     signal PCSrc : std_logic_vector(1 downto 0) := (others => '0');
 
-    signal curPC_ID : std_logic_vector(31 downto 0) := (others => '0');
+    signal curPC_ID, imm_ID : std_logic_vector(31 downto 0) := (others => '0');
+    signal instruction_ID : std_logic_vector(31 downto 0) := (others => '0');
+    signal rs1_ID,rd_ID, rs2_ID, ro1_ID, ro2_ID, rd_WB : std_logic_vector(4 downto 0) := (others => '0');
+    
+    signal branch_ID : std_logic := '0';
+    signal regWrite_ID : std_logic := '0';
+    signal memRead_ID : std_logic := '0';
+    signal memWrite_ID : std_logic := '0';
+    signal memToReg_ID : std_logic := '0';
+    signal ALUOp_ID : std_logic_vector(3 downto 0) := (others => '0');
+    signal ALUSrc_ID : std_logic := '0';
+
+    signal curPC_EX, imm_EX : std_logic_vector(31 downto 0) := (others => '0');
+    signal ro1_EX, ro2_EX : std_logic_vector(31 downto 0) := (others => '0');
+    signal funct7_EX : std_logic := '0';
+    signal funct3_EX : std_logic_vector(2 downto 0) := (others => '0');
+    signal rd_EX : std_logic_vector(4 downto 0) := (others => '0');
+
+    signal xregsData_WB : std_logic_vector(31 downto 0) := (others => '0');
+    signal wren_WB : std_logic := '0';
+
+
+    -- utility signals:
+    signal ignoreBits : std_logic_vector(31 downto 0) := (others => '0');
 begin
     -- fetch
     mux_IF : mux4x1 port map(
@@ -93,14 +139,81 @@ begin
     );
 
 
-    fetchPC_regist : register32 port map(
+    PCRegister_IF_ID : register32 port map(
         clk => CLK,
         write_enabled => '1',
         data_in => curPC_IF,
         data_out => curPC_ID
     );
 
+    instructionRegister_IF_ID : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => instruction,
+        data_out => instruction_ID
+    );
+
     -- decode
+    immGen_ID : imm32_generator port map(
+        instruction => instruction_ID,
+        imm => imm_ID
+    );
+
+    rs1_ID <= instruction_ID(19 downto 15);
+    rs2_ID <= instruction_ID(24 downto 20);
+    rd_ID <= instruction_ID(11 downto 7);
+
+    xregs_ID : XREGS port map(
+        clk => CLK,
+        wren => wren_WB,
+        rs1 => rs1_ID,
+        rs2 => rs2_ID,
+        rd => rd_WB,
+        data => xregsData_WB,
+        ro1 => ro1_ID,
+        ro2 => ro2_ID
+    );
+
+    controlUnit_ID : control_unit port map(
+        instr => instruction_ID,
+        -- ex
+        alu_op => ALUOp_ID,
+        alu_src => ALUSrc_ID,
+        -- mem
+        mem_read => memRead_ID,
+        mem_write => memWrite_ID,
+        branch => branch_ID,
+        -- wb
+        reg_write => regWrite_ID,
+        mem_to_reg => memToReg_ID
+    );
+
+    immmRegister_ID_EX : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => imm_ID,
+        data_out => imm_EX
+    );
+
+    functsAndRdRegister_ID_EX : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in(31 downto 9) => (others => '0'),
+        data_in(8 downto 4) => rd_ID,
+        data_in(3) => instruction_ID(30),
+        data_in(2 downto 0) => instruction_ID(14 downto 12),
+        data_out(3) => funct7_EX,
+        data_out(2 downto 0) => funct3_EX,
+        data_out(8 downto 4) => rd_EX,
+        data_out(31 downto 9) => ignoreBits(31 downto 9)
+    );
+
+    -- execute
+    
+    
+
+
+
     
 
 end RISCV_pipeline_arch;
