@@ -14,7 +14,7 @@ Z0 w1689382544
 Z1 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 173
+!i122 189
 Z4 dC:/ModelSim/RISCV_pipeline/modelsim
 Z5 8C:/ModelSim/RISCV_pipeline/modelsim/adder.vhd
 Z6 FC:/ModelSim/RISCV_pipeline/modelsim/adder.vhd
@@ -24,9 +24,9 @@ VTYBgDY^W@UM1SCPH8V0B`2
 !s100 ^D]a2kWRF26GE5[YYY;N]1
 Z7 OV;C;2020.1;71
 33
-Z8 !s110 1690296599
+Z8 !s110 1690297423
 !i10b 1
-Z9 !s108 1690296599.000000
+Z9 !s108 1690297423.000000
 Z10 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/adder.vhd|
 Z11 !s107 C:/ModelSim/RISCV_pipeline/modelsim/adder.vhd|
 !i113 1
@@ -37,7 +37,7 @@ R1
 R2
 R3
 DEx4 work 5 adder 0 22 TYBgDY^W@UM1SCPH8V0B`2
-!i122 173
+!i122 189
 l17
 L15 6
 VGdh5zn?Gj8566lL6VVFn63
@@ -57,7 +57,7 @@ Z14 w1690148942
 R1
 R2
 R3
-!i122 175
+!i122 191
 R4
 Z15 8C:/ModelSim/RISCV_pipeline/modelsim/control_unit.vhd
 Z16 FC:/ModelSim/RISCV_pipeline/modelsim/control_unit.vhd
@@ -79,12 +79,12 @@ Acontrol_unit_arch
 R1
 R2
 R3
-Z19 DEx4 work 12 control_unit 0 22 ^_GTclEmW1z=bhSn[9^M=0
-!i122 175
+DEx4 work 12 control_unit 0 22 ^_GTclEmW1z=bhSn[9^M=0
+!i122 191
 l27
-Z20 L21 28
-Z21 VjQXX5SLJAIj[z;XeCPSMi3
-Z22 !s100 ]_j0Kn9J6CIZ?9n_liHnD1
+L21 28
+VjQXX5SLJAIj[z;XeCPSMi3
+!s100 ]_j0Kn9J6CIZ?9n_liHnD1
 R7
 33
 R8
@@ -96,25 +96,25 @@ R18
 R12
 R13
 Eimm32_generator
-Z23 w1689349850
+Z19 w1690296656
 R1
 R2
 R3
-!i122 170
+!i122 186
 R4
-Z24 8C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd
-Z25 FC:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd
+Z20 8C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd
+Z21 FC:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd
 l0
-L7 1
-VGRi;NPg0Q9Em;lkHWla@13
-!s100 8YilU8JIdOgXJQo3abQ:;1
+L6 1
+V>=[`hGY[VjWX=]Cee5hlD2
+!s100 HTl?nnMc=z8X?bcj=3Bc82
 R7
 33
 R8
 !i10b 1
 R9
-Z26 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd|
-Z27 !s107 C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd|
+Z22 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd|
+Z23 !s107 C:/ModelSim/RISCV_pipeline/modelsim/imm32_generator.vhd|
 !i113 1
 R12
 R13
@@ -122,41 +122,41 @@ Aimm32_generatorarch
 R1
 R2
 R3
-DEx4 work 15 imm32_generator 0 22 GRi;NPg0Q9Em;lkHWla@13
-!i122 170
-l20
-L14 36
-Vl6g75glc?O`Jf]oCAj2g33
-!s100 0?XKnF:db4>F2nBg7@@io1
+DEx4 work 15 imm32_generator 0 22 >=[`hGY[VjWX=]Cee5hlD2
+!i122 186
+l19
+L13 35
+VP[4TYh;2>aD6IlMa5zJ1C1
+!s100 VTjn@[102>7XdBe>P;F1N3
 R7
 33
 R8
 !i10b 1
 R9
-R26
-R27
+R22
+R23
 !i113 1
 R12
 R13
 Emux4x1
-Z28 w1690169416
+Z24 w1690169416
 R2
 R3
-!i122 168
+!i122 184
 R4
-Z29 8C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd
-Z30 FC:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd
+Z25 8C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd
+Z26 FC:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd
 l0
 L6 1
 VTECh]MWnnL=WIeZobN2Z93
 !s100 [aQoP=CH_CX4LAV72O7me3
 R7
 33
-Z31 !s110 1690296598
+R8
 !i10b 1
-Z32 !s108 1690296598.000000
-Z33 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd|
-Z34 !s107 C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd|
+R9
+Z27 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd|
+Z28 !s107 C:/ModelSim/RISCV_pipeline/modelsim/mux4x1.vhd|
 !i113 1
 R12
 R13
@@ -164,29 +164,29 @@ Amux4x1_arch1
 R2
 R3
 DEx4 work 6 mux4x1 0 22 TECh]MWnnL=WIeZobN2Z93
-!i122 168
+!i122 184
 l16
 L15 7
 VAXZ74[<;Ol;VZ2F:g6S4f0
 !s100 QF]M8JZ62FDQS3l2Q@RiI0
 R7
 33
-R31
+R8
 !i10b 1
-R32
-R33
-R34
+R9
+R27
+R28
 !i113 1
 R12
 R13
 Eregister32
-Z35 w1690168885
+Z29 w1690168885
 R2
 R3
-!i122 174
+!i122 190
 R4
-Z36 8C:/ModelSim/RISCV_pipeline/modelsim/register32.vhd
-Z37 FC:/ModelSim/RISCV_pipeline/modelsim/register32.vhd
+Z30 8C:/ModelSim/RISCV_pipeline/modelsim/register32.vhd
+Z31 FC:/ModelSim/RISCV_pipeline/modelsim/register32.vhd
 l0
 L4 1
 VGdG@DhaE`oZUD`_5O28g60
@@ -196,8 +196,8 @@ R7
 R8
 !i10b 1
 R9
-Z38 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/register32.vhd|
-Z39 !s107 C:/ModelSim/RISCV_pipeline/modelsim/register32.vhd|
+Z32 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/register32.vhd|
+Z33 !s107 C:/ModelSim/RISCV_pipeline/modelsim/register32.vhd|
 !i113 1
 R12
 R13
@@ -205,7 +205,7 @@ Aregister32_arch1
 R2
 R3
 DEx4 work 10 register32 0 22 GdG@DhaE`oZUD`_5O28g60
-!i122 174
+!i122 190
 l15
 L14 11
 V2QWIXLgR3>N7LL]>;UA>g1
@@ -215,31 +215,31 @@ R7
 R8
 !i10b 1
 R9
-R38
-R39
+R32
+R33
 !i113 1
 R12
 R13
 Eriscv_pipeline
-Z40 w1690296490
+Z34 w1690297500
 R1
 R2
 R3
-!i122 171
+!i122 194
 R4
-Z41 8C:/ModelSim/RISCV_pipeline/modelsim/processador.vhd
-Z42 FC:/ModelSim/RISCV_pipeline/modelsim/processador.vhd
+Z35 8C:/ModelSim/RISCV_pipeline/modelsim/processador.vhd
+Z36 FC:/ModelSim/RISCV_pipeline/modelsim/processador.vhd
 l0
 L6 1
 VC0MM:00knNKmUnJOc0dm43
 !s100 QUzk4MK7LPOmf^[IFPaTk1
 R7
 33
-R8
+Z37 !s110 1690297504
 !i10b 1
-R9
-Z43 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/processador.vhd|
-Z44 !s107 C:/ModelSim/RISCV_pipeline/modelsim/processador.vhd|
+Z38 !s108 1690297504.000000
+Z39 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/processador.vhd|
+Z40 !s107 C:/ModelSim/RISCV_pipeline/modelsim/processador.vhd|
 !i113 1
 R12
 R13
@@ -247,31 +247,31 @@ Ariscv_pipeline_arch
 R1
 R2
 R3
-DEx4 work 14 riscv_pipeline 0 22 C0MM:00knNKmUnJOc0dm43
-!i122 171
-l119
-L21 271
-VfKflGdGQ;@9H<8VCE^5hU2
-!s100 Bjj6VLb]8feQ7W]nCD^K51
+Z41 DEx4 work 14 riscv_pipeline 0 22 C0MM:00knNKmUnJOc0dm43
+!i122 194
+l126
+L21 328
+Vc1214f`^BX9>D01XnRfF?1
+!s100 LgNO?jA;61;TSTU=ObcJK1
 R7
 33
-R8
+R37
 !i10b 1
-R9
-R43
-R44
+R38
+R39
+R40
 !i113 1
 R12
 R13
 Eula
-Z45 w1690296594
+Z42 w1690296594
 R1
 R2
 R3
-!i122 169
+!i122 185
 R4
-Z46 8C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd
-Z47 FC:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd
+Z43 8C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd
+Z44 FC:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd
 l0
 L5 1
 VAKMT=a`[]18HLGGE0BQN=3
@@ -281,8 +281,8 @@ R7
 R8
 !i10b 1
 R9
-Z48 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd|
-Z49 !s107 C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd|
+Z45 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd|
+Z46 !s107 C:/ModelSim/RISCV_pipeline/modelsim/ULA.vhd|
 !i113 1
 R12
 R13
@@ -291,7 +291,7 @@ R1
 R2
 R3
 DEx4 work 3 ula 0 22 AKMT=a`[]18HLGGE0BQN=3
-!i122 169
+!i122 185
 l22
 L14 77
 Vkm]41;1z]4hJ_g0Pfb]D60
@@ -301,20 +301,20 @@ R7
 R8
 !i10b 1
 R9
-R48
-R49
+R45
+R46
 !i113 1
 R12
 R13
 Exregs
-Z50 w1690251549
+Z47 w1690251549
 R1
 R2
 R3
-!i122 172
+!i122 188
 R4
-Z51 8C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd
-Z52 FC:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd
+Z48 8C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd
+Z49 FC:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd
 l0
 L6 1
 VQTVeTCOBK]BAK5QznaM:E2
@@ -324,8 +324,8 @@ R7
 R8
 !i10b 1
 R9
-Z53 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd|
-Z54 !s107 C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd|
+Z50 !s90 -reportprogress|300|-work|work|-2008|-explicit|-stats=none|C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd|
+Z51 !s107 C:/ModelSim/RISCV_pipeline/modelsim/xregs.vhd|
 !i113 1
 R12
 R13
@@ -334,7 +334,7 @@ R1
 R2
 R3
 DEx4 work 5 xregs 0 22 QTVeTCOBK]BAK5QznaM:E2
-!i122 172
+!i122 188
 l19
 L16 15
 Vj@Ao=6n[gP8k@8gQ69Cae1
@@ -344,8 +344,8 @@ R7
 R8
 !i10b 1
 R9
-R53
-R54
+R50
+R51
 !i113 1
 R12
 R13

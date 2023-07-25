@@ -110,6 +110,13 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
     signal funct3_EX : std_logic_vector(2 downto 0) := (others => '0');
     signal rd_EX : std_logic_vector(4 downto 0) := (others => '0');
 
+    
+    signal branch_MEM, regWrite_MEM, memRead_MEM, memWrite_MEM, memToReg_MEM : std_logic := '0';
+    
+    signal ALUResult_MEM : std_logic_vector(31 downto 0) := (others => '0');
+    signal ALUZero_MEM : std_logic := '0';
+    signal ro2_MEM, rd_MEM, branchAddress_MEM : std_logic_vector(31 downto 0) := (others => '0');
+
     signal xregsData_WB : std_logic_vector(31 downto 0) := (others => '0');
     signal wren_WB : std_logic := '0';
 
@@ -192,7 +199,7 @@ begin
         mem_to_reg => memToReg_ID
     );
 
-    controlRegister : register32 port map(
+    controlRegister_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
         data_in(0) => memToReg_ID,
@@ -242,6 +249,7 @@ begin
         data_out => curPC_EX
     );
 
+    -- parece que functs é totalmente desnecessário aqui
     functsAndRdRegister_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
@@ -277,6 +285,56 @@ begin
         B => ULAB_EX,
         Y => ALUResult_EX,
         zero => ALUZero_EX
+    );
+
+    
+
+
+    ro2Register_EX_MEM : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => ro2_EX,
+        data_out => ro2_MEM
+    );
+
+    branchAddressRegister_EX_MEM : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => branchAddress_EX,
+        data_out => branchAddress_MEM
+    );
+
+    controlAndALUZeroAndRdRegister_EX_MEM : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in(0) => memToReg_EX,
+        data_in(1) => regWrite_EX,
+        data_in(2) => memWrite_EX,
+        data_in(3) => memRead_EX,
+        data_in(4) => branch_EX,
+
+        data_in(5) => ALUZero_EX,
+        
+        data_in(10 downto 6) => rd_EX,
+        data_in(31 downto 11) => ignoreBits(31 downto 11),
+        
+        data_out(0) => memToReg_MEM,
+        data_out(1) => regWrite_MEM,
+        data_out(2) => memWrite_MEM,
+        data_out(3) => memRead_MEM,
+        data_out(4) => branch_MEM,
+        
+        data_out(5) => ALUZero_MEM,
+        
+        data_out(10 downto 6) => rd_MEM,
+        data_out(31 downto 11) => ignoreBits(31 downto 11)
+    );
+
+    ALUResultRegister_EX_MEM : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        data_in => ALUResult_EX,
+        data_out => ALUResult_MEM
     );
 
     
