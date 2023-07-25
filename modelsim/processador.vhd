@@ -9,9 +9,9 @@ entity RISCV_pipeline is
         CLK : in std_logic;
         -- connection to external instruction memory
         instruction : in std_logic_vector(31 downto 0);
-        instruction_mem_addr : out std_logic_vector(31 downto 0);
+        instruction_mem_addr : out std_logic_vector(9 downto 0);
         -- connection to external data memory
-        data_mem_addr : out std_logic_vector(31 downto 0);
+        data_mem_addr : out std_logic_vector(9 downto 0);
         data_mem_write : out std_logic;
         data_mem_read : out std_logic;
         data_mem_write_data : out std_logic_vector(31 downto 0);
