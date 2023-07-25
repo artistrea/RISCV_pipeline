@@ -19,8 +19,10 @@ entity control_unit is
 end control_unit;
 
 architecture control_unit_arch of control_unit is
-    type FORMAT_RV is ( R_type, I_type, S_type, SB_type, UJ_type, U_type, Unknown_type );
-
+    type instructions is (
+        INS_ADD, INS_ADDi, INS_SUB, INS_SUBi, INS_AND, INS_ANDi, INS_LUI, INS_SLT, INS_OR, INS_ORi,
+        INS_XOR, INS_XORi, INS_SLLi, INS_SRLi, INS_SRAi, INS_SLTi, INS_SLTu, INS_SLTUi, INS_AUIPC,
+    );
     signal format : FORMAT_RV;
 
 
