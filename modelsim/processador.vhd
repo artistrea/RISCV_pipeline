@@ -145,7 +145,7 @@ begin
         data_out => curPC_IF
     );
 
-    instruction_mem_addr <= curPC_IF;
+    instruction_mem_addr <= curPC_IF(9 downto 0);
 
     adder_IF : adder port map(
         A => curPC_IF,
@@ -344,7 +344,7 @@ begin
 
 
     -- memory access
-    data_mem_addr <= ALUResult_MEM;
+    data_mem_addr <= ALUResult_MEM(9 downto 0);
     data_mem_write <= memWrite_MEM;
     data_mem_read <= memRead_MEM;
     data_mem_write_data <= ro2_MEM;
