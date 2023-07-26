@@ -13,7 +13,7 @@ architecture memory_tb_arch of memory_tb is
     signal read_signal : std_logic;
     signal write_data : std_logic_vector(31 downto 0);
     signal read_data : std_logic_vector(31 downto 0);
-    file text_file : text open read_mode is "text.txt";
+    file text_file : text open read_mode is "../rars/prime/instr_dump.txt";
     component memory
         port (
             address : in std_logic_vector(7 downto 0);
