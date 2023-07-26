@@ -383,7 +383,7 @@ begin
         X(31 downto 7) => ignoreBits(31 downto 7),
 
         Y(0) => memToReg_WB,
-        Y(1) => regWrite_WB,
+        Y(1) => wren_WB,
         Y(6 downto 2) => rd_WB,
         Y(31 downto 7) => ignoreBits(31 downto 7)
     );
