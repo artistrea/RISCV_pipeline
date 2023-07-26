@@ -23,7 +23,7 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
     component mux4x1 is
         port(
             D0, D1, D2, D3 : in std_logic_vector(31 downto 0);
-            SEL : in std_logic_vector(1 downto 0);
+            S : in std_logic_vector(1 downto 0);
             Y : out std_logic_vector(31 downto 0)
         );
     end component;
@@ -38,8 +38,8 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
     component register32 is
         port(
             clk, write_enabled : in std_logic;
-            data_in : in std_logic_vector(31 downto 0);
-            data_out : out std_logic_vector(31 downto 0)
+            X : in std_logic_vector(31 downto 0);
+            Y : out std_logic_vector(31 downto 0)
         );
     end component;
 
@@ -65,8 +65,8 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
 
     component imm32_generator is
         port(
-            instruction : in std_logic_vector(31 downto 0);
-            imm : out std_logic_vector(31 downto 0)
+            instr : in std_logic_vector(31 downto 0);
+            imm32 : out std_logic_vector(31 downto 0)
         );
     end component;
 
@@ -123,10 +123,11 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
     
     signal ALUResult_MEM : std_logic_vector(31 downto 0) := (others => '0');
     signal ALUZero_MEM : std_logic := '0';
-    signal ro2_MEM, rd_MEM, branchAddress_MEM : std_logic_vector(31 downto 0) := (others => '0');
+    signal ro2_MEM, branchAddress_MEM : std_logic_vector(31 downto 0) := (others => '0');
+    signal rd_MEM : std_logic_vector(4 downto 0) := (others => '0');
 
     signal memToReg_WB, regWrite_WB : std_logic := '0';
-    signal xregsData_WB, memData_WB : std_logic_vector(31 downto 0) := (others => '0');
+    signal xregsData_WB, memData_WB, ALUResult_WB : std_logic_vector(31 downto 0) := (others => '0');
     signal wren_WB : std_logic := '0';
 
 
@@ -139,7 +140,7 @@ begin
         D1 => nextPC1_IF,
         D2 => (others => '0'),
         D3 => (others => '0'),
-        SEL => PCSrc,
+        S => PCSrc,
         Y => nextPC_IF
     );
 
@@ -149,8 +150,8 @@ begin
         clk => CLK,
         write_enabled => '1',
         -- TODO: mudar isso para funcionar pelo hazard control
-        data_in => selectedNextPC_IF,
-        data_out => curPC_IF
+        X => selectedNextPC_IF,
+        Y => curPC_IF
     );
 
     instruction_mem_addr <= curPC_IF(9 downto 0);
@@ -165,21 +166,21 @@ begin
     PCRegister_IF_ID : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => curPC_IF,
-        data_out => curPC_ID
+        X => curPC_IF,
+        Y => curPC_ID
     );
 
     instructionRegister_IF_ID : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => instruction,
-        data_out => instruction_ID
+        X => instruction,
+        Y => instruction_ID
     );
 
     -- decode
     immGen_ID : imm32_generator port map(
-        instruction => instruction_ID,
-        imm => imm_ID
+        instr => instruction_ID,
+        imm32 => imm_ID
     );
 
     rs1_ID <= instruction_ID(19 downto 15);
@@ -217,71 +218,71 @@ begin
     controlRegister_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in(0) => memToReg_ID,
-        data_in(1) => regWrite_ID,
-        data_in(2) => memWrite_ID,
-        data_in(3) => memRead_ID,
-        data_in(4) => branchCond_ID,
-        data_in(5) => branchUnc_ID,
-        data_in(6) => branchSrc_ID,
-        data_in(10 downto 7) => ALUOp_ID,
-        data_in(12 downto 11) => ALUSrcA_ID,
-        data_in(14 downto 13) => ALUSrcB_ID,
-        data_in(31 downto 15) => ignoreBits(31 downto 13),
+        X(0) => memToReg_ID,
+        X(1) => regWrite_ID,
+        X(2) => memWrite_ID,
+        X(3) => memRead_ID,
+        X(4) => branchCond_ID,
+        X(5) => branchUnc_ID,
+        X(6) => branchSrc_ID,
+        X(10 downto 7) => ALUOp_ID,
+        X(12 downto 11) => ALUSrcA_ID,
+        X(14 downto 13) => ALUSrcB_ID,
+        X(31 downto 15) => ignoreBits(31 downto 15),
         
-        data_out(0) => memToReg_EX,
-        data_out(1) => regWrite_EX,
-        data_out(2) => memWrite_EX,
-        data_out(3) => memRead_EX,
-        data_out(4) => branchCond_EX,
-        data_out(5) => branchUnc_EX,
-        data_out(6) => branchSrc_EX,
-        data_out(10 downto 7) => ALUOp_EX,
-        data_out(12 downto 11) => ALUSrcA_EX,
-        data_out(14 downto 13) => ALUSrcB_EX,
-        data_out(31 downto 15) => ignoreBits(31 downto 13)
+        Y(0) => memToReg_EX,
+        Y(1) => regWrite_EX,
+        Y(2) => memWrite_EX,
+        Y(3) => memRead_EX,
+        Y(4) => branchCond_EX,
+        Y(5) => branchUnc_EX,
+        Y(6) => branchSrc_EX,
+        Y(10 downto 7) => ALUOp_EX,
+        Y(12 downto 11) => ALUSrcA_EX,
+        Y(14 downto 13) => ALUSrcB_EX,
+        Y(31 downto 15) => ignoreBits(31 downto 15)
     );
 
     ro1Register_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => ro1_ID,
-        data_out => ro1_EX
+        X => ro1_ID,
+        Y => ro1_EX
     );
 
     ro2Register_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => ro2_ID,
-        data_out => ro2_EX
+        X => ro2_ID,
+        Y => ro2_EX
     );
     
     immmRegister_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => imm_ID,
-        data_out => imm_EX
+        X => imm_ID,
+        Y => imm_EX
     );
 
     PCRdRegister_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => curPC_ID,
-        data_out => curPC_EX
+        X => curPC_ID,
+        Y => curPC_EX
     );
 
     -- parece que functs é totalmente desnecessário aqui
     functsAndRdRegister_ID_EX : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in(31 downto 9) => (others => '0'),
-        data_in(8 downto 4) => rd_ID,
-        data_in(3) => instruction_ID(30),
-        data_in(2 downto 0) => instruction_ID(14 downto 12),
-        data_out(3) => funct7_EX,
-        data_out(2 downto 0) => funct3_EX,
-        data_out(8 downto 4) => rd_EX,
-        data_out(31 downto 9) => ignoreBits(31 downto 9)
+        X(31 downto 9) => (others => '0'),
+        X(8 downto 4) => rd_ID,
+        X(3) => instruction_ID(30),
+        X(2 downto 0) => instruction_ID(14 downto 12),
+        Y(3) => funct7_EX,
+        Y(2 downto 0) => funct3_EX,
+        Y(8 downto 4) => rd_EX,
+        Y(31 downto 9) => ignoreBits(31 downto 9)
     );
 
     -- execute
@@ -296,7 +297,7 @@ begin
         D1 => imm_EX,
         D2 => std_logic_vector(to_signed(4, 32)),
         D3 => ignoreBits,
-        SEL => ALUSrcB_EX,
+        S => ALUSrcB_EX,
         Y => ULAB_EX
     );
 
@@ -305,7 +306,7 @@ begin
         D1 => curPC_EX,
         D2 => std_logic_vector(to_signed(0, 32)),
         D3 => ignoreBits,
-        SEL => ALUSrcB_EX,
+        S => ALUSrcB_EX,
         Y => ULAA_EX
     );
 
@@ -323,48 +324,48 @@ begin
     ro2Register_EX_MEM : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => ro2_EX,
-        data_out => ro2_MEM
+        X => ro2_EX,
+        Y => ro2_MEM
     );
 
     branchAddressRegister_EX_MEM : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => branchAddress_EX,
-        data_out => branchAddress_MEM
+        X => branchAddress_EX,
+        Y => branchAddress_MEM
     );
 
     controlAndALUZeroAndRdRegister_EX_MEM : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in(0) => memToReg_EX,
-        data_in(1) => regWrite_EX,
-        data_in(2) => memWrite_EX,
-        data_in(3) => memRead_EX,
-        data_in(4) => branchCond_EX,
-        data_in(5) => branchUnc_EX,
-        data_in(6) => ALUZero_EX,
-        data_in(11 downto 7) => rd_EX,
-        data_in(31 downto 12) => ignoreBits(31 downto 12),
+        X(0) => memToReg_EX,
+        X(1) => regWrite_EX,
+        X(2) => memWrite_EX,
+        X(3) => memRead_EX,
+        X(4) => branchCond_EX,
+        X(5) => branchUnc_EX,
+        X(6) => ALUZero_EX,
+        X(11 downto 7) => rd_EX,
+        X(31 downto 12) => ignoreBits(31 downto 12),
         
-        data_out(0) => memToReg_MEM,
-        data_out(1) => regWrite_MEM,
-        data_out(2) => memWrite_MEM,
-        data_out(3) => memRead_MEM,
-        data_out(4) => branchCond_MEM,
-        data_out(5) => branchUnc_MEM,
+        Y(0) => memToReg_MEM,
+        Y(1) => regWrite_MEM,
+        Y(2) => memWrite_MEM,
+        Y(3) => memRead_MEM,
+        Y(4) => branchCond_MEM,
+        Y(5) => branchUnc_MEM,
 
-        data_out(6) => ALUZero_MEM,
+        Y(6) => ALUZero_MEM,
         
-        data_out(11 downto 7) => rd_MEM,
-        data_out(31 downto 12) => ignoreBits(31 downto 12)
+        Y(11 downto 7) => rd_MEM,
+        Y(31 downto 12) => ignoreBits(31 downto 12)
     );
 
     ALUResultRegister_EX_MEM : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => ALUResult_EX,
-        data_out => ALUResult_MEM
+        X => ALUResult_EX,
+        Y => ALUResult_MEM
     );
 
 
@@ -375,7 +376,7 @@ begin
     data_mem_write_data <= ro2_MEM;
 
     
-    -- TODO: implementar branch direito
+    -- TODO: implementar branch direito (hazard)
     shouldBranch_MEM <=
         '1' when (branchCond_MEM = '1' and ALUZero_MEM = '1') or branchUnc_MEM = '1'
         else '0';
@@ -383,30 +384,39 @@ begin
     controlRegister_MEM_WB : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in(0) => memToReg_MEM,
-        data_in(1) => regWrite_MEM,
-        data_in(31 downto 2) => ignoreBits(31 downto 2),
+        X(0) => memToReg_MEM,
+        X(1) => regWrite_MEM,
+        X(6 downto 2) => rd_MEM,
+        X(31 downto 7) => ignoreBits(31 downto 7),
 
-        data_out(0) => memToReg_WB,
-        data_out(1) => regWrite_WB,
-        data_out(31 downto 2) => ignoreBits(31 downto 2)
+        Y(0) => memToReg_WB,
+        Y(1) => regWrite_WB,
+        Y(6 downto 2) => rd_WB,
+        Y(31 downto 7) => ignoreBits(31 downto 7)
     );
 
     memDataRegister_MEM_WB : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        data_in => data_mem_read_data,
-        data_out => memData_WB
+        X => data_mem_read_data,
+        Y => memData_WB
+    );
+
+    ALUResultRegister_MEM_WB : register32 port map(
+        clk => CLK,
+        write_enabled => '1',
+        X => ALUResult_MEM,
+        Y => ALUResult_WB
     );
 
     -- write back
 
     mux_WB : mux4x1 port map(
-        D0 => ALUResult_MEM,
+        D0 => ALUResult_WB,
         D1 => memData_WB,
         D2 => ignoreBits,
         D3 => ignoreBits,
-        SEL => '0' & memToReg_WB,
+        S => '0' & memToReg_WB,
         Y => xregsData_WB
     );
 end RISCV_pipeline_arch;

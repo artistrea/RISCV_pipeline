@@ -6,7 +6,7 @@ use ieee.numeric_std.all;
 entity imm32_generator is
     port(
         instr : in std_logic_vector(31 downto 0);
-        imm32 : out signed(31 downto 0)
+        imm32 : out std_logic_vector(31 downto 0)
     );
 end imm32_generator;
 
@@ -37,11 +37,11 @@ architecture imm32_generatorArch of imm32_generator is
         begin
             case format is
                 when R_type  => imm32 <= (others => '0');
-                when I_type  => imm32 <= resize(signed(instr(31 downto 20)), 32);
-                when S_type  => imm32 <= resize(signed(instr(31 downto 25) & instr(11 downto 7)), 32);
-                when SB_type => imm32 <= resize(signed(instr(31) & instr(7) & instr(30 downto 25) & instr(11 downto 8) & '0'), 32);
-                when UJ_type => imm32 <= resize(signed( instr(31) & instr(19 downto 12) & instr(20) & instr(30 downto 21) & '0'), 32);
-                when U_type  => imm32 <= signed(instr(31 downto 12) & X"000") ;
+                when I_type  => imm32 <= std_logic_vector(resize(signed(instr(31 downto 20)), 32));
+                when S_type  => imm32 <= std_logic_vector(resize(signed(instr(31 downto 25) & instr(11 downto 7)), 32));
+                when SB_type => imm32 <= std_logic_vector(resize(signed(instr(31) & instr(7) & instr(30 downto 25) & instr(11 downto 8) & '0'), 32));
+                when UJ_type => imm32 <= std_logic_vector(resize(signed( instr(31) & instr(19 downto 12) & instr(20) & instr(30 downto 21) & '0'), 32));
+                when U_type  => imm32 <= std_logic_vector(signed(instr(31 downto 12) & X"000")) ;
                 when others  => imm32 <= (others => '0');
             end case;
         end process;
