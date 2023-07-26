@@ -90,7 +90,7 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
     end component;
 
     -- wires:
-    signal nextPC_IF, nextPC0_IF, nextPC1_IF, curPC_IF : std_logic_vector(31 downto 0) := (others => '0');
+    signal nextPC_IF, selectedNextPC_IF, nextPC0_IF, nextPC1_IF, curPC_IF : std_logic_vector(31 downto 0) := (others => '0');
     signal PCSrc : std_logic_vector(1 downto 0) := (others => '0');
 
     signal curPC_ID, imm_ID : std_logic_vector(31 downto 0) := (others => '0');
@@ -143,11 +143,13 @@ begin
         Y => nextPC_IF
     );
 
+    selectedNextPC_IF <= nextPC_IF when shouldBranch_MEM     = '0' else branchAddress_MEM;
+
     PC : register32 port map(
         clk => CLK,
         write_enabled => '1',
         -- TODO: mudar isso para funcionar pelo hazard control
-        data_in => nextPC_IF if shouldBranch = '0' else branchAddress_MEM,
+        data_in => selectedNextPC_IF,
         data_out => curPC_IF
     );
 
