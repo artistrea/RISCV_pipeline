@@ -11,6 +11,7 @@ architecture prime_number_tb_arch of prime_number_tb is
     signal instruction_mem_addr, data_mem_addr : std_logic_vector(9 downto 0);
     signal instruction, data_mem_write_data, data_mem_read_data, write_data_instr, write_data_data, read_data_instr : std_logic_vector(31 downto 0);
     signal instr_address, data_address : std_logic_vector(7 downto 0);
+    -- TODO: fix file paths:
     file text_file : text open read_mode is "text.txt";
     file data_file : text open read_mode is "data.txt";
     component RISCV_pipeline is
