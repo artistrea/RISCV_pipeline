@@ -7,7 +7,7 @@ entity mux4x1 is
     port(
         D0, D1, D2, D3 : in std_logic_vector(31 downto 0);
         S: in STD_LOGIC_VECTOR(1 downto 0);
-        Y : out std_logic_vector(31 downto 0)
+        Y : out std_logic_vector(31 downto 0) := (others => '0')
     );
 end mux4x1;
 

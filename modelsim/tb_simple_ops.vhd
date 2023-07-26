@@ -115,16 +115,36 @@ begin
         end loop;
 
         report "Finished running the hardcoded cycles. Tesbench running" severity NOTE;
-        testbench_controls <= true;
         write_signal_data_TB <= '0';
+        testbench_controls <= true;
 
         data_address_TB <= "00000000";
         clk <= '0';
         wait for T/2;
         clk <= '1';
         wait for T/2;
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
         assert to_integer(unsigned(data_mem_read_data_DM)) = 10
-            report "Erro: data_mem_read_data_DM should be 10, but is "& integer'image(
+            report "data_mem_read_data_DM should be 10, but is "& integer'image(
                 to_integer(unsigned(data_mem_read_data_DM))
             ) severity ERROR;
 

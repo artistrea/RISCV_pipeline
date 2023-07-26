@@ -6,7 +6,7 @@ use ieee.numeric_std.all;
 entity imm32_generator is
     port(
         instr : in std_logic_vector(31 downto 0);
-        imm32 : out std_logic_vector(31 downto 0)
+        imm32 : out std_logic_vector(31 downto 0) := (others => '0')
     );
 end imm32_generator;
 

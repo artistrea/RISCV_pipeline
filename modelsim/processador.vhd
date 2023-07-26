@@ -59,7 +59,7 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
             clk, wren : in std_logic;
             rs1, rs2, rd : in std_logic_vector(4 downto 0);
             data : in std_logic_vector(WSIZE-1 downto 0);
-            ro1, ro2 : out std_logic_vector(WSIZE-1 downto 0) := (others => '0')
+            ro1, ro2 : out std_logic_vector(WSIZE-1 downto 0)
         );
     end component;
 
@@ -90,57 +90,57 @@ architecture RISCV_pipeline_arch of RISCV_pipeline is
     end component;
 
     -- wires:
-    signal nextPC_IF, selectedNextPC_IF, nextPC0_IF, nextPC1_IF, curPC_IF : std_logic_vector(31 downto 0) := (others => '0');
-    signal PCSrc : std_logic_vector(1 downto 0) := (others => '0');
+    signal nextPC_IF, selectedNextPC_IF : std_logic_vector(31 downto 0);
+    signal curPC_IF : std_logic_vector(31 downto 0) := (others => '0');
+    signal instruction_IF : std_logic_vector(31 downto 0);
 
-    signal curPC_ID, imm_ID : std_logic_vector(31 downto 0) := (others => '0');
-    signal instruction_ID : std_logic_vector(31 downto 0) := (others => '0');
-    signal rs1_ID,rd_ID, rs2_ID, rd_WB : std_logic_vector(4 downto 0) := (others => '0');
-    signal ro1_ID, ro2_ID : std_logic_vector(31 downto 0) := (others => '0');
+    signal curPC_ID, imm_ID : std_logic_vector(31 downto 0);
+    signal instruction_ID : std_logic_vector(31 downto 0);
+    signal rs1_ID,rd_ID, rs2_ID : std_logic_vector(4 downto 0);
+    signal ro1_ID, ro2_ID : std_logic_vector(31 downto 0);
 
-    signal ALUSrcA_ID, ALUSrcB_ID : std_logic_vector(1 downto 0) := (others => '0');
-    signal branchCond_ID, branchUnc_ID, branchSrc_ID, regWrite_ID, memRead_ID, memWrite_ID, memToReg_ID : std_logic := '0';
-    signal ALUOp_ID : std_logic_vector(3 downto 0) := (others => '0');
+    signal ALUSrcA_ID, ALUSrcB_ID : std_logic_vector(1 downto 0);
+    signal branchCond_ID, branchUnc_ID, branchSrc_ID, regWrite_ID, memRead_ID, memWrite_ID, memToReg_ID : std_logic;
+    signal ALUOp_ID : std_logic_vector(3 downto 0);
 
         
-    signal ALUSrcA_EX, ALUSrcB_EX : std_logic_vector(1 downto 0) := (others => '0');
-    signal branchCond_EX, branchUnc_EX, branchSrc_EX, regWrite_EX, memRead_EX, memWrite_EX, memToReg_EX : std_logic := '0';
-    signal ALUOp_EX : std_logic_vector(3 downto 0) := (others => '0');
-    signal ALUResult_EX : std_logic_vector(31 downto 0) := (others => '0');
-    signal ALUZero_EX : std_logic := '0';
+    signal ALUSrcA_EX, ALUSrcB_EX : std_logic_vector(1 downto 0);
+    signal branchCond_EX, branchUnc_EX, branchSrc_EX, regWrite_EX, memRead_EX, memWrite_EX, memToReg_EX : std_logic;
+    signal ALUOp_EX : std_logic_vector(3 downto 0);
+    signal ALUResult_EX : std_logic_vector(31 downto 0);
+    signal ALUZero_EX : std_logic;
 
     
-    signal curPC_EX, imm_EX, branchAddress_EX : std_logic_vector(31 downto 0) := (others => '0');
-    signal ro1_EX, ro2_EX, ULAB_EX, ULAA_EX : std_logic_vector(31 downto 0) := (others => '0');
-    signal funct7_EX : std_logic := '0';
-    signal funct3_EX : std_logic_vector(2 downto 0) := (others => '0');
-    signal rd_EX : std_logic_vector(4 downto 0) := (others => '0');
+    signal curPC_EX, imm_EX, branchAddress_EX : std_logic_vector(31 downto 0);
+    signal ro1_EX, ro2_EX, ULAB_EX, ULAA_EX : std_logic_vector(31 downto 0);
+    signal funct7_EX : std_logic;
+    signal funct3_EX : std_logic_vector(2 downto 0);
+    signal rd_EX : std_logic_vector(4 downto 0);
 
     
-    signal branchCond_MEM, branchUnc_MEM, regWrite_MEM, memRead_MEM, memWrite_MEM, memToReg_MEM : std_logic := '0';
+    signal branchCond_MEM, branchUnc_MEM, regWrite_MEM, memRead_MEM, memWrite_MEM, memToReg_MEM : std_logic;
 
-    signal shouldBranch_MEM : std_logic := '0';
+    signal shouldBranch_MEM : std_logic;
     
-    signal ALUResult_MEM : std_logic_vector(31 downto 0) := (others => '0');
-    signal ALUZero_MEM : std_logic := '0';
-    signal ro2_MEM, branchAddress_MEM : std_logic_vector(31 downto 0) := (others => '0');
-    signal rd_MEM : std_logic_vector(4 downto 0) := (others => '0');
+    signal ALUResult_MEM : std_logic_vector(31 downto 0);
+    signal ALUZero_MEM : std_logic;
+    signal ro2_MEM, branchAddress_MEM : std_logic_vector(31 downto 0);
+    signal rd_MEM : std_logic_vector(4 downto 0);
 
-    signal memToReg_WB, regWrite_WB : std_logic := '0';
-    signal xregsData_WB, memData_WB, ALUResult_WB : std_logic_vector(31 downto 0) := (others => '0');
-    signal wren_WB : std_logic := '0';
+    signal memToReg_WB, regWrite_WB : std_logic;
+    signal xregsData_WB, memData_WB, ALUResult_WB : std_logic_vector(31 downto 0);
+    signal wren_WB : std_logic;
+    signal rd_WB : std_logic_vector(4 downto 0);
 
 
     -- utility signals:
-    signal ignoreBits : std_logic_vector(31 downto 0) := (others => '0');
+    signal ignoreBits : std_logic_vector(31 downto 0);
 begin
     -- fetch
-    mux_IF : mux4x1 port map(
-        D0 => nextPC0_IF,
-        D1 => nextPC1_IF,
-        D2 => (others => '0'),
-        D3 => (others => '0'),
-        S => PCSrc,
+
+    adder_IF : adder port map(
+        A => curPC_IF,
+        B => std_logic_vector(to_signed(4, 32)),
         Y => nextPC_IF
     );
 
@@ -156,24 +156,17 @@ begin
 
     instruction_mem_addr <= curPC_IF(9 downto 0);
 
-    adder_IF : adder port map(
-        A => curPC_IF,
-        B => std_logic_vector(to_signed(4, 32)),
-        Y => nextPC0_IF
-    );
-
-
     PCRegister_IF_ID : register32 port map(
         clk => CLK,
         write_enabled => '1',
         X => curPC_IF,
         Y => curPC_ID
     );
-
+    instruction_IF <= instruction;
     instructionRegister_IF_ID : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        X => instruction,
+        X => instruction_IF,
         Y => instruction_ID
     );
 
@@ -199,7 +192,7 @@ begin
     );
 
     controlUnit_ID : control_unit port map(
-        instr => instruction_ID,
+        instr => instruction_IF,
         -- ex
         alu_op => ALUOp_ID,
         alu_srcA => ALUSrcA_ID,
@@ -306,7 +299,7 @@ begin
         D1 => curPC_EX,
         D2 => std_logic_vector(to_signed(0, 32)),
         D3 => ignoreBits,
-        S => ALUSrcB_EX,
+        S => ALUSrcA_EX,
         Y => ULAA_EX
     );
 

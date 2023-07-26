@@ -6,18 +6,18 @@ entity control_unit is
     port (
         instr : in std_logic_vector(31 downto 0);
         -- ex
-        alu_op : out std_logic_vector(3 downto 0);
-        alu_srcA : out std_logic_vector(1 downto 0);
-        alu_srcB : out std_logic_vector(1 downto 0);
+        alu_op : out std_logic_vector(3 downto 0) := (others => '0');
+        alu_srcA : out std_logic_vector(1 downto 0) := (others => '0');
+        alu_srcB : out std_logic_vector(1 downto 0) := (others => '0');
         -- mem
-        mem_read : out std_logic;
-        mem_write : out std_logic;
-        branch_cond : out std_logic;
-        branch_uncond : out std_logic;
-        branch_src : out std_logic;
+        mem_read : out std_logic := '0';
+        mem_write : out std_logic := '0';
+        branch_cond : out std_logic := '0';
+        branch_uncond : out std_logic := '0';
+        branch_src : out std_logic := '0';
         -- wb
-        reg_write : out std_logic;
-        mem_to_reg : out std_logic
+        reg_write : out std_logic := '0';
+        mem_to_reg : out std_logic := '0'
     );
 end control_unit;
 
@@ -26,10 +26,11 @@ architecture control_unit_arch of control_unit is
         INS_ADD, INS_ADDi, INS_SUB, INS_SUBi, INS_AND, INS_ANDi, INS_LUI, INS_SLT, INS_OR, INS_ORi, INS_XOR, INS_XORi, INS_SLLi, INS_SRLi, INS_SRAi, INS_SLTi, INS_SLTU, INS_SLTUi, INS_AUIPC, INS_JAL, INS_JALR, INS_BEQ, INS_BNE, INS_BLT, INS_BGE, INS_BGEU, INS_BLTU, INS_LW, INS_SW, Unknown_instruction
     );
     signal instruction_is : instruction_enum;
-
+    
     signal opcode : std_logic_vector(6 downto 0);
     signal funct3 : std_logic_vector(2 downto 0);
     signal funct7 : std_logic_vector(6 downto 0);
+
 begin
     opcode <= instr(6 downto 0);
     funct3 <= instr(14 downto 12);
@@ -71,7 +72,7 @@ begin
                     when "111" => instruction_is <= INS_ANDi;
                     when "001" => instruction_is <= INS_SLLi;
                     when "101" => if funct7 = "0000000" then
-                                 instruction_is <= INS_SRLi;
+                                instruction_is <= INS_SRLi;
                                 else
                                     instruction_is <= INS_SRAi; 
                                 end if;
@@ -416,7 +417,16 @@ begin
                 branch_uncond <= '0';
                 reg_write <= '1';
                 mem_to_reg <= '0';
-            when Unknown_instruction => 
+            when Unknown_instruction =>
+                alu_op <= "0000";
+                alu_srcA <= "00";
+                alu_srcB <= "00";
+                mem_read <= '0';
+                mem_write <= '0';
+                branch_cond <= '0';
+                branch_uncond <= '0';
+                reg_write <= '0';
+                mem_to_reg <= '0';
         end case;
     end process;
 

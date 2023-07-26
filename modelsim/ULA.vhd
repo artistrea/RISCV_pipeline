@@ -6,8 +6,8 @@ entity ULA is
     port (
         opcode : in std_logic_vector(3 downto 0);
         A, B : in std_logic_vector(31 downto 0);
-        Y : out std_logic_vector(31 downto 0);
-        zero : out std_logic
+        Y : out std_logic_vector(31 downto 0) := (others => '0');
+        zero : out std_logic := '1'
     );
 end ULA;
 

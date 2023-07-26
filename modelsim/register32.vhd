@@ -5,7 +5,7 @@ entity register32 is
     port(
         X : in std_logic_vector(31 downto 0);
         write_enabled : in std_logic;
-        Y : out std_logic_vector(31 downto 0);
+        Y : out std_logic_vector(31 downto 0) := (others => '0');
         clk : in std_logic
     );
 end register32;

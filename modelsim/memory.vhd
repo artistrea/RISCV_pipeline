@@ -9,7 +9,7 @@ entity memory is
         write_signal : in std_logic;
         read_signal : in std_logic;
         write_data : in std_logic_vector(31 downto 0);
-        read_data : out std_logic_vector(31 downto 0)
+        read_data : out std_logic_vector(31 downto 0) := (others => '0')
     );
 end memory;
 
@@ -22,7 +22,7 @@ begin
         if rising_edge(clk) then
             if write_signal = '1' then
                 mem_data(to_integer(unsigned(address))) <= write_data;
-                read_data <= mem_data(to_integer(unsigned(address)));
+                report "####################### WRITING TO MEM" severity note;
             end if;
             if read_signal = '1' then
                 read_data <= mem_data(to_integer(unsigned(address)));

@@ -3,6 +3,7 @@
 	nop
 	nop
 	nop
+	nop
 	sw t1, (zero)
 	nop
 	nop

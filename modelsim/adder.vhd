@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity adder is
     port(
         A, B : in std_logic_vector(31 downto 0);
-        Y : out std_logic_vector(31 downto 0)
+        Y : out std_logic_vector(31 downto 0) := (others => '0')
     -- carries would normally exist as well:
         -- Cin: in std_logic;
         -- Cout: out std_logic
