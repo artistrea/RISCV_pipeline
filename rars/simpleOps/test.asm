@@ -54,10 +54,25 @@
 	
 	
 
-### Feitas as instruções:
-# ADDi, ORi, XORi, SLTi, SLTUi, ADD, SLLi, ANDi, SRLi, SUB, AND, XOR, SLT, OR, AUIPC, SRAi
+### Feitas as instruï¿½ï¿½es:
+# ADDi, ORi, XORi, SLTi, SLTUi, ADD, SLLi, ANDi, SRLi, SUB, AND, XOR, SLT, OR, AUIPC, SRAi, SLTu
 
 ### Falta:
 # , , , , , , , , , ,
-# , , , , , SLTu, , ,
+# , , , , , , , ,
 # JAL, JALR, BEQ, BNE, BLT, BGE, BGEU, BLTU
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

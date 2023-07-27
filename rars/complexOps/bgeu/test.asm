@@ -17,9 +17,7 @@ START_LOOP:
 	nop
 	nop
 	sw t1, 0(t1)
-	bne t0, a0, START_LOOP
+	bgeu a0, t0, START_LOOP
 	nop
 	nop
 	nop
-	
-	

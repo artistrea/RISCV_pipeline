@@ -15,7 +15,18 @@ end XREGS;
 
 architecture XREGS_arch of XREGS is
     type regs is array(31 downto 0) of std_logic_vector(WSIZE-1 downto 0);
-    signal regs_data: regs := (others => (others => '0'));
+
+    function init return regs is
+        variable init_regs: regs;
+    begin
+        for i in 0 to 31 loop
+            init_regs(i) := (others => '0');
+        end loop;
+        init_regs(2) := x"0000007c";
+        return init_regs;
+    end function init;
+
+    signal regs_data: regs := init;
 begin
     on_clock_up: process(CLK)
     begin

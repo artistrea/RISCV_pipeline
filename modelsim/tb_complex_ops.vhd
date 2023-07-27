@@ -14,9 +14,9 @@ architecture tb_complex_ops_arch of tb_complex_ops is
 
     signal testbench_controls : boolean := true;
 
-    file text_file : text open read_mode is "../rars/complexOps/instr_dump.txt";
-    file data_file : text open read_mode is "../rars/complexOps/data_dump.txt";
-    file data_after_file : text open read_mode is "../rars/complexOps/data_after_dump.txt";
+    file text_file : text open read_mode is "../rars/complexOps/beq/instr_dump.txt";
+    file data_file : text open read_mode is "../rars/complexOps/beq/data_dump.txt";
+    file data_after_file : text open read_mode is "../rars/complexOps/beq/data_after_dump.txt";
     component RISCV_pipeline is
         port(
             CLK : in std_logic;
@@ -124,7 +124,7 @@ begin
         report "Ended testbench setup. Processor running" severity NOTE;
         testbench_controls <= false;
 
-        for i in 0 to 200 loop
+        for i in 0 to 255 loop
             clk <= '0';
             wait for T/2;
             clk <= '1';
@@ -134,7 +134,7 @@ begin
         report "Finished running the hardcoded cycles. Tesbench running" severity NOTE;
         testbench_controls <= true;
 
-        for i in 0 to 255 loop
+        for i in 0 to 30 loop
             readline(data_after_file, text_line);
             hread(text_line, hexa_read);
             data_address_TB <= std_logic_vector(to_unsigned(i, 8));

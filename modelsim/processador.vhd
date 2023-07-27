@@ -267,7 +267,7 @@ begin
 
     -- execute
     branchAddress_EX <=
-        std_logic_vector(signed(curPC_EX) + signed(imm_EX) + signed(ro2_EX)) when branchSrc_EX = '1'
+        std_logic_vector(signed(imm_EX) + signed(ro2_EX)) when branchSrc_EX = '1'
         else std_logic_vector(signed(curPC_EX) + signed(imm_EX));
 
     

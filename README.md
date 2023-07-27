@@ -40,6 +40,11 @@ Perceba que os testbenchs fazem vários asserts, e que se algum deles falhar, a 
 
 ### Gerando arquivos de teste
 
+#### Configurando o RARS
+
+Configura a memória para ter memória de dados iniciando em 0:
+![Alt text](public/rars_mem_config.png)
+
 #### Assembly
 
 Crie uma nova pasta em `rars/` para colocar os arquivos relacionados a esse teste. Crie o código assembly que gostaria de testar, e então faça o dump das memórias do .text e do .data em hexadecimal usando o Rars:
@@ -49,6 +54,14 @@ Depois, use o script `helpers/convert_hex.py` para converter o dump do Rars em u
 
 #### Testbench
 
-Copie o arquivo `tb_simple_ops.vhd` para a pasta do seu teste, e então altere a linha que contém `../rars/simpleOps/instr_dump.txt` para o caminho do seu arquivo de teste.
+Altere o arquivo de testbench que deseja usar para que ele use o arquivo de teste que você gerou. Por exemplo, no `tb_complex_ops.vhd`, troque a linha:
 
-Copie o setup do testbench, e altere somente a quantidade de ciclos que o processador roda e os asserts logo após.
+```vhdl
+constant TEST_FILE : string := "rars/complex_ops/data_mem.txt";
+```
+
+Para:
+
+```vhdl
+constant TEST_FILE : string := "rars/<caminho da pasta do teste>/data_mem.txt";
+```
