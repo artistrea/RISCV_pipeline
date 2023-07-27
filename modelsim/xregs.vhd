@@ -22,7 +22,7 @@ architecture XREGS_arch of XREGS is
         for i in 0 to 31 loop
             init_regs(i) := (others => '0');
         end loop;
-        init_regs(2) := x"0000001f";
+        init_regs(2) := x"0000007c";
         return init_regs;
     end function init;
 
