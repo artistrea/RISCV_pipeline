@@ -34,9 +34,27 @@ E use a opção de compilação `1076-2008`:
 
 ### Rodando o testbench
 
-Usando o modelsim, inicie uma simulação de algum dos testbenchs feitos para o processador, como o `tb_simple_ops`.
+Dois testbenchs principais foram feitos. O das operações lógico-aritméticas e de memória são testadas em `tb_simple_ops.vhd`, e o das operações de desvio estão em `tb_complex_ops.vhd`. O primeiro testbench não deve ser alterado, pois o teste para cada operação foi feito na mão.
 
-Perceba que os testbenchs fazem vários asserts, e que se algum deles falhar, a simulação irá escrever `Erro: ...` nos seus logs de simulação.
+O testbench `tb_complex_ops.vhd` pode ser alterado para testar outros programas. Para isso, altere a linha:
+
+```vhdl
+file text_file : text open read_mode is "../rars/complexOps/jalr/instr_dump.txt";
+file data_file : text open read_mode is "../rars/complexOps/jalr/data_dump.txt";
+file data_after_file : text open read_mode is "../rars/complexOps/jalr/data_after_dump.txt";
+```
+
+Para:
+
+```vhdl
+file text_file : text open read_mode is "../rars/complexOps/<nome-do-teste-desejado>/instr_dump.txt";
+file data_file : text open read_mode is "../rars/complexOps/<nome-do-teste-desejado>/data_dump.txt";
+file data_after_file : text open read_mode is "../rars/complexOps/<nome-do-teste-desejado>/data_after_dump.txt";
+```
+
+Veja a pasta `rars/complexOps/` para considerar as opções de testes já criados. Após alterar essas linhas para selecionar o teste desejado, recompile e rode o testbench.
+
+Perceba que, caso ocorra alguma discrepância entre o resultado esperado e o resultado obtido, o testbench irá escrever uma mensagem de erro no console do ModelSim.
 
 ### Gerando arquivos de teste
 
