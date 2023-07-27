@@ -19,21 +19,32 @@
 	lw a3, 12(zero)
 	lw a4, 16(zero)
 	lw a5, 20(zero)
-	
-	add a6, a0, a1 # 30
-	nop
-	nop
-	nop
-	nop
-	sw a6, 24(zero)
+
+	add t0, a0, a1 # 30
+	slli t1, a1, 4 # xf0 = 240
+	andi t2, a2, 5 # 15 & 5 = 5
+	srli t3, a3, 22 # 1
+	sub t4, zero, a3 # -2^23 = 0xffc00000
+	and t5, a0, a5 # 15 & 1 = 1
+	xor t6, a0, a5 # 15 ^ 1 = 14
+	auipc a0, 2 # x00002000 + PC (PC = 3064 no rars, 64 no ModelSim)
+
+	sw t0, 24(zero)
+	sw t1, 28(zero)
+	sw t2, 32(zero)
+	sw t3, 36(zero)
+	sw t4, 40(zero)
+	sw t5, 44(zero)
+	sw t6, 48(zero)
+	sw a0, 52(zero)
 	
 	
 	
 
 ### Feitas as instruções:
-# ADDi, ORi, XORi, SLTi, SLTUi, ADD
+# ADDi, ORi, XORi, SLTi, SLTUi, ADD, SLLi, ANDi, SRLi, SUB, AND, XOR
 
 ### Falta:
-# , , SUB, AND, ANDi, , SLT, OR, , XOR,
-# , SLLi, SRLi, SRAi, , SLTu, , AUIPC,
+# , , , , , , SLT, OR, , ,
+# , , , SRAi, , SLTu, , AUIPC,
 # JAL, JALR, BEQ, BNE, BLT, BGE, BGEU, BLTU

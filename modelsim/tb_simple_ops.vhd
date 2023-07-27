@@ -191,6 +191,76 @@ begin
                 to_integer(unsigned(data_mem_read_data_DM))
             ) severity ERROR;
     
+        data_address_TB <= "00000111";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"000000f0"
+            report "data_mem_read_data_DM should be x000000f0, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+    
+        data_address_TB <= "00001000";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"00000005"
+            report "data_mem_read_data_DM should be 5, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+    
+        
+        data_address_TB <= "00001001";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"00000001"
+            report "data_mem_read_data_DM should be 1, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+        
+
+        data_address_TB <= "00001010";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"ffc00000"
+            report "data_mem_read_data_DM should be xffc00000, but is " & to_hstring(data_mem_read_data_DM) severity ERROR;
+
+        
+        data_address_TB <= "00001011";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"00000001"
+            report "data_mem_read_data_DM should be 1, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+
+        
+        data_address_TB <= "00001100";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"0000000e"
+            report "data_mem_read_data_DM should be 14, but is " & to_hstring(data_mem_read_data_DM) severity ERROR;
+
+            
+        data_address_TB <= "00001101";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"00002064"
+            report "data_mem_read_data_DM should be 0x2064 (8292), but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
 
         report "Finished Testbench" severity NOTE;
         wait;

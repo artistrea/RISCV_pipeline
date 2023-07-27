@@ -138,8 +138,7 @@ begin
     
     
     instruction_is <=
-        INS_SUB             when opcode = "0110011" and funct7 = "000" else
-        Unknown_instruction when opcode = "0110011" and funct7 = "0100000" else
+        INS_SUB             when opcode = "0110011" and funct3 = "000" and funct7 = "0100000" else
         INS_ADD             when opcode = "0110011" and funct3 = "000" else
         INS_SLT             when opcode = "0110011" and funct3 = "010" else
         INS_SLTU            when opcode = "0110011" and funct3 = "011" else
