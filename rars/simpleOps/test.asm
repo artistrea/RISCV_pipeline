@@ -61,3 +61,18 @@
 # , , , , , , , , , ,
 # , , , , , , , ,
 # JAL, JALR, BEQ, BNE, BLT, BGE, BGEU, BLTU
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -124,7 +124,7 @@ begin
         report "Ended testbench setup. Processor running" severity NOTE;
         testbench_controls <= false;
 
-        for i in 0 to 300 loop
+        for i in 0 to 255 loop
             clk <= '0';
             wait for T/2;
             clk <= '1';
