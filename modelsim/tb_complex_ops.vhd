@@ -14,9 +14,9 @@ architecture tb_complex_ops_arch of tb_complex_ops is
 
     signal testbench_controls : boolean := true;
 
-    file text_file : text open read_mode is "../rars/complexOps/bne/instr_dump.txt";
-    file data_file : text open read_mode is "../rars/complexOps/bne/data_dump.txt";
-    file data_after_file : text open read_mode is "../rars/complexOps/bne/data_after_dump.txt";
+    file text_file : text open read_mode is "../rars/complexOps/beq/instr_dump.txt";
+    file data_file : text open read_mode is "../rars/complexOps/beq/data_dump.txt";
+    file data_after_file : text open read_mode is "../rars/complexOps/beq/data_after_dump.txt";
     component RISCV_pipeline is
         port(
             CLK : in std_logic;
