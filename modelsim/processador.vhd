@@ -187,12 +187,12 @@ begin
         rs2 => rs2_ID,
         rd => rd_WB,
         data => xregsData_WB,
-        ro1 => ro1_ID,
-        ro2 => ro2_ID
+        ro1 => ro1_EX,
+        ro2 => ro2_EX
     );
 
     controlUnit_ID : control_unit port map(
-        instr => instruction_IF,
+        instr => instruction_ID,
         -- ex
         alu_op => ALUOp_ID,
         alu_srcA => ALUSrcA_ID,
@@ -236,19 +236,6 @@ begin
         Y(31 downto 15) => ignoreBits(31 downto 15)
     );
 
-    ro1Register_ID_EX : register32 port map(
-        clk => CLK,
-        write_enabled => '1',
-        X => ro1_ID,
-        Y => ro1_EX
-    );
-
-    ro2Register_ID_EX : register32 port map(
-        clk => CLK,
-        write_enabled => '1',
-        X => ro2_ID,
-        Y => ro2_EX
-    );
     
     immmRegister_ID_EX : register32 port map(
         clk => CLK,

@@ -22,7 +22,6 @@ begin
         if rising_edge(clk) then
             if write_signal = '1' then
                 mem_data(to_integer(unsigned(address))) <= write_data;
-                report "####################### WRITING TO MEM" severity note;
             end if;
             if read_signal = '1' then
                 read_data <= mem_data(to_integer(unsigned(address)));

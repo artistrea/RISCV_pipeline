@@ -8,9 +8,9 @@ end tb_simple_ops;
 
 architecture tb_simple_ops_arch of tb_simple_ops is
     signal clk, processor_clk, data_mem_write_PRC, data_mem_read_PRC, data_mem_read_TB_or_PRC, write_signal_instr_TB, write_signal_data_TB_or_PRC, write_signal_data_TB : std_logic := '0';
-    signal instr_address_PRC, data_mem_addr_PRC : std_logic_vector(9 downto 0) := (others => '0');
+    signal instr_address_PRC, data_address_PRC : std_logic_vector(9 downto 0) := (others => '0');
     signal data_mem_read_data_DM, write_data_instr_TB, write_data_TB_or_PRC, write_data_TB,  instruction_IM, write_data_PRC : std_logic_vector(31 downto 0) := (others => '0');
-    signal instr_address_TB_or_PRC, instr_address_TB, data_address_TB_or_PRC, data_address_TB, data_address_PRC : std_logic_vector(7 downto 0) := (others => '0');
+    signal instr_address_TB_or_PRC, instr_address_TB, data_address_TB_or_PRC, data_address_TB : std_logic_vector(7 downto 0) := (others => '0');
 
     signal testbench_controls : boolean := true;
 
@@ -47,7 +47,7 @@ begin
         CLK => processor_clk,
         instruction => instruction_IM,
         instruction_mem_addr => instr_address_PRC,
-        data_mem_addr => data_mem_addr_PRC,
+        data_mem_addr => data_address_PRC,
         data_mem_write => data_mem_write_PRC,
         data_mem_read => data_mem_read_PRC,
         data_mem_write_data => write_data_PRC,
@@ -74,16 +74,16 @@ begin
     );
 
     -- data mem control
-    data_address_TB_or_PRC <=       data_address_TB when testbench_controls else data_address_PRC;
-    write_signal_data_TB_or_PRC <=  write_signal_data_TB when testbench_controls else data_mem_write_PRC;
-    data_mem_read_TB_or_PRC <=      '1'             when testbench_controls else data_mem_read_PRC;
-    write_data_TB_or_PRC   <=         write_data_TB  when testbench_controls else write_data_PRC;
+    data_address_TB_or_PRC  <=      data_address_TB         when testbench_controls else data_address_PRC(9 downto 2);
+    write_signal_data_TB_or_PRC <=  write_signal_data_TB    when testbench_controls else data_mem_write_PRC;
+    data_mem_read_TB_or_PRC <=      '1'                     when testbench_controls else data_mem_read_PRC;
+    write_data_TB_or_PRC    <=      write_data_TB           when testbench_controls else write_data_PRC;
     
     -- instr mem control
-    write_signal_instr_TB   <=      '1'             when testbench_controls else '0';
-    instr_address_TB_or_PRC <=      instr_address_TB when testbench_controls else instr_address_PRC(9 downto 2);
+    write_signal_instr_TB   <=      write_signal_data_TB    when testbench_controls else '0';
+    instr_address_TB_or_PRC <=      instr_address_TB        when testbench_controls else instr_address_PRC(9 downto 2);
     -- processor clk control
-    processor_clk <=                '0'             when testbench_controls else clk;
+    processor_clk           <=      '0'                     when testbench_controls else clk;
     
 
     process
@@ -123,30 +123,53 @@ begin
         wait for T/2;
         clk <= '1';
         wait for T/2;
-        clk <= '0';
-        wait for T/2;
-        clk <= '1';
-        wait for T/2;
-        clk <= '0';
-        wait for T/2;
-        clk <= '1';
-        wait for T/2;
-        clk <= '0';
-        wait for T/2;
-        clk <= '1';
-        wait for T/2;
-        clk <= '0';
-        wait for T/2;
-        clk <= '1';
-        wait for T/2;
-        clk <= '0';
-        wait for T/2;
-        clk <= '1';
-        wait for T/2;
-        assert to_integer(unsigned(data_mem_read_data_DM)) = 10
-            report "data_mem_read_data_DM should be 10, but is "& integer'image(
+        assert to_integer(unsigned(data_mem_read_data_DM)) = 15
+            report "[ADDR:00000000]data_mem_read_data_DM should be 15, but is "& integer'image(
                 to_integer(unsigned(data_mem_read_data_DM))
             ) severity ERROR;
+
+
+        data_address_TB <= "00000001";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert to_integer(unsigned(data_mem_read_data_DM)) = 15
+            report "data_mem_read_data_DM should be 15, but is "& integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+
+        data_address_TB <= "00000010";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert to_integer(unsigned(data_mem_read_data_DM)) = 15
+            report "data_mem_read_data_DM should be 15, but is "& integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+
+        
+        -- data_address_TB <= "00000011";
+        -- clk <= '0';
+        -- wait for T/2;
+        -- clk <= '1';
+        -- wait for T/2;
+        -- assert data_mem_read_data_DM = x"00400000"
+        --     report "data_mem_read_data_DM should be 0x00400000, but is " & std_logic_vector'image(data_mem_read_data_DM)
+        --     severity ERROR;
+    
+    
+        -- data_address_TB <= "00000100";
+        -- clk <= '0';
+        -- wait for T/2;
+        -- clk <= '1';
+        -- wait for T/2;
+        -- assert data_mem_read_data_DM = x"1"
+        --     report "data_mem_read_data_DM should be 1, but is " & integer'image(
+        --         to_integer(unsigned(data_mem_read_data_DM))
+        --     ) severity ERROR;
+    
 
         report "Finished Testbench" severity NOTE;
         wait;

@@ -36,400 +36,139 @@ begin
     funct3 <= instr(14 downto 12);
     funct7 <= instr(31 downto 25);
 
-    process(instr)
-    begin
-        case opcode is
-            when "0110011" => -- format <= R_type;
-                if funct7 = "0100000" and funct3 = "000" then
-                    instruction_is <= INS_SUB;
-                elsif funct7 = "0100000" then
-                    instruction_is <= Unknown_instruction; -- SRA não especificado no trabalho
-                else
-                    case funct3 is
-                        when "000" => instruction_is <= INS_ADD;
-                        -- when "001" => instruction_is <= INS_SLL;
-                        when "010" => instruction_is <= INS_SLT;
-                        when "011" => instruction_is <= INS_SLTU;
-                        when "100" => instruction_is <= INS_XOR;
-                        -- when "101" => instruction_is <= INS_SRL;
-                        when "110" => instruction_is <= INS_OR;
-                        when "111" => instruction_is <= INS_AND;
-                        when others => instruction_is <= Unknown_instruction;
-                    end case;
-                end if;
-            when "0000011" => -- format <= I_type;
-                case funct3 is
-                    when "010" => instruction_is <= INS_LW;
-                    when others =>instruction_is <= Unknown_instruction;
-                end case;
-            when "0010011" => -- format <= I_type;
-                case funct3 is
-                    when "000" => instruction_is <= INS_ADDi;
-                    when "010" => instruction_is <= INS_SLTi;
-                    when "011" => instruction_is <= INS_SLTUi;
-                    when "100" => instruction_is <= INS_XORi;
-                    when "110" => instruction_is <= INS_ORi;
-                    when "111" => instruction_is <= INS_ANDi;
-                    when "001" => instruction_is <= INS_SLLi;
-                    when "101" => if funct7 = "0000000" then
-                                instruction_is <= INS_SRLi;
-                                else
-                                    instruction_is <= INS_SRAi; 
-                                end if;
-                    when others => instruction_is <= Unknown_instruction;
-                end case;
-            when "1100111" => -- format <= I_type;
-                case funct3 is
-                    when "000" => instruction_is <= INS_JALR;
-                    when others => instruction_is <= Unknown_instruction;
-                end case;
-            when "0100011" => -- format <= S_type;
-                case funct3 is
-                    when "010" => instruction_is <= INS_SW;
-                    when others => instruction_is <= Unknown_instruction;
-                end case;
-            when "1100011" => -- format <= SB_type;
-                case funct3 is
-                    when "000" => instruction_is <= INS_BEQ;
-                    when "001" => instruction_is <= INS_BNE;
-                    when "100" => instruction_is <= INS_BLT;
-                    when "101" => instruction_is <= INS_BGE;
-                    when "110" => instruction_is <= INS_BLTU;
-                    when "111" => instruction_is <= INS_BGEU;
-                    when others => instruction_is <= Unknown_instruction;
-                end case;
-            when "0110111" => -- format <= U_type;
-                instruction_is <= INS_LUI;
-            when "0010111" => -- format <= U_type;
-                instruction_is <= INS_AUIPC;
-            when "1101111" => -- format <= UJ_type;
-                instruction_is <= INS_JAL;
-            when others => instruction_is <= Unknown_instruction;
-        end case;
-    end process;
+    --         when INS_SUBi =>
+    --             reg_write <= '1';
+    --             alu_srcB <= "01";
+    alu_op <= "0001" when instruction_is = INS_SUB else
+              "0001" when instruction_is = INS_SUBi else
+              "0010" when instruction_is = INS_AND else
+              "0010" when instruction_is = INS_ANDi else
+              "0011" when instruction_is = INS_OR else
+              "0011" when instruction_is = INS_ORi else
+              "0100" when instruction_is = INS_XOR else
+              "0100" when instruction_is = INS_XORi else
+              "1001" when instruction_is = INS_SLT else
+              "0101" when instruction_is = INS_SLLi else
+              "0111" when instruction_is = INS_SRLi else
+              "1000" when instruction_is = INS_SRAi else
+              "1001" when instruction_is = INS_SLTi else
+              "1010" when instruction_is = INS_SLTU else
+              "1010" when instruction_is = INS_SLTUi else
+              "1101" when instruction_is = INS_BEQ else
+              "1110" when instruction_is = INS_BNE else
+              "1001" when instruction_is = INS_BLT else
+              "1011" when instruction_is = INS_BGE else
+              "1100" when instruction_is = INS_BGEU else
+              "1010" when instruction_is = INS_BLTU else
+              "0000";
+-- done
+    alu_srcA <=
+        "10" when instruction_is = INS_LUI else
+        "01" when instruction_is = INS_JAL else
+        "01" when instruction_is = INS_JALR else
+        "01" when instruction_is = INS_AUIPC else
+        "00";
 
-    process(instruction_is, instr)
-    begin
-        case instruction_is is
-            when INS_ADD =>
-                alu_op <= "0000";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_ADDi =>
-                alu_op <= "0000";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SUB =>
-                alu_op <= "0001";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SUBi =>
-                alu_op <= "0001";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_AND =>
-                alu_op <= "0010";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_ANDi =>
-                alu_op <= "0010";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_OR =>
-                alu_op <= "0011";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_ORi =>
-                alu_op <= "0011";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_XOR =>
-                alu_op <= "0100";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_XORi =>
-                alu_op <= "0100";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0'; 
-            when INS_SLT =>
-                alu_op <= "1001";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SLLi =>
-                alu_op <= "0101";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SRLi =>
-                alu_op <= "0111";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SRAi =>
-                alu_op <= "1000";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SLTi =>
-                alu_op <= "1001";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SLTU =>
-                alu_op <= "1010";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_SLTUi =>
-                alu_op <= "1010";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_JAL =>
-                alu_op <= "0000";
-                alu_srcA <= "01";
-                alu_srcB <= "10";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '1';
-                branch_src <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_JALR =>
-                alu_op <= "0000";
-                alu_srcA <= "01";
-                alu_srcB <= "10";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '1';
-                branch_src <= '1';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_BEQ =>
-                alu_op <= "1101";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '1';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
+    alu_srcB <=
+        "01" when instruction_is = INS_ADDi else
+        "01" when instruction_is = INS_SUBi else
+        "01" when instruction_is = INS_ANDi else
+        "01" when instruction_is = INS_ORi else
+        "01" when instruction_is = INS_XORi else
+        "01" when instruction_is = INS_SLLi else
+        "01" when instruction_is = INS_SRLi else
+        "01" when instruction_is = INS_SRAi else
+        "01" when instruction_is = INS_SLTi else
+        "01" when instruction_is = INS_SLTUi else
+        "01" when instruction_is = INS_LW else
+        "01" when instruction_is = INS_SW else
+        "01" when instruction_is = INS_LUI else
+        "10" when instruction_is = INS_JAL else
+        "10" when instruction_is = INS_JALR else
+        "01" when instruction_is = INS_AUIPC else
+        "00";
 
-            when INS_BNE =>
-                alu_op <= "1110";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '1';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
+-- done
+    mem_read <= '1' when instruction_is = INS_LW else '0';
+-- done
+    mem_write <= '1' when instruction_is = INS_SW else '0';
+-- done
+    branch_cond <= '1' when instruction_is = INS_BEQ else
+                   '1' when instruction_is = INS_BNE else
+                   '1' when instruction_is = INS_BLT else
+                   '1' when instruction_is = INS_BGE else
+                   '1' when instruction_is = INS_BGEU else
+                   '1' when instruction_is = INS_BLTU else
+                   '0';
+    
+    branch_uncond <= '1' when instruction_is = INS_JAL else
+                     '1' when instruction_is = INS_JALR else
+                     '0';
+-- done
+    branch_src <= '1' when instruction_is = INS_JALR else
+                    '0';
+    
+    reg_write <= '1' when instruction_is = INS_ADD else
+                '1' when instruction_is = INS_ADDi else
+                '1' when instruction_is = INS_SUB else
+                '1' when instruction_is = INS_SUBi else
+                '1' when instruction_is = INS_AND else
+                '1' when instruction_is = INS_ANDi else
+                '1' when instruction_is = INS_OR else
+                '1' when instruction_is = INS_ORi else
+                '1' when instruction_is = INS_XOR else
+                '1' when instruction_is = INS_XORi else
+                '1' when instruction_is = INS_SLT else
+                '1' when instruction_is = INS_SLLi else
+                '1' when instruction_is = INS_SRLi else
+                '1' when instruction_is = INS_SRAi else
+                '1' when instruction_is = INS_SLTi else
+                '1' when instruction_is = INS_SLTU else
+                '1' when instruction_is = INS_SLTUi else
+                '1' when instruction_is = INS_LUI else
+                '1' when instruction_is = INS_AUIPC else
+                '1' when instruction_is = INS_LW else
+                '1' when instruction_is = INS_JAL else
+                '1' when instruction_is = INS_JALR else
+                '0';
 
-            when INS_BLT =>
-                alu_op <= "1001";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '1';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
-            when INS_BGE =>
-                alu_op <= "1011";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '1';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
-            when INS_BGEU =>
-                alu_op <= "1100";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '1';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
-
-            when INS_BLTU =>
-                alu_op <= "1010";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '1';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
-
-            when INS_LW =>
-                alu_op <= "0000";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '1';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '1';
-
-            when INS_SW =>
-                alu_op <= "0000";
-                alu_srcA <= "00";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '1';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
-            when INS_AUIPC =>
-                alu_op <= "0000";
-                alu_srcA <= "01";
-                alu_srcB <= "01";
-                mem_read <= '1';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                branch_src <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when INS_LUI =>
-                alu_op <= "0000";
-                alu_srcA <= "10";
-                alu_srcB <= "01";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '1';
-                mem_to_reg <= '0';
-            when Unknown_instruction =>
-                alu_op <= "0000";
-                alu_srcA <= "00";
-                alu_srcB <= "00";
-                mem_read <= '0';
-                mem_write <= '0';
-                branch_cond <= '0';
-                branch_uncond <= '0';
-                reg_write <= '0';
-                mem_to_reg <= '0';
-        end case;
-    end process;
-
+    -- done
+    mem_to_reg <= '1' when instruction_is = INS_LW else
+                  '0';
+    
+    
+    instruction_is <=
+        INS_SUB             when opcode = "0110011" and funct7 = "000" else
+        Unknown_instruction when opcode = "0110011" and funct7 = "0100000" else
+        INS_ADD             when opcode = "0110011" and funct3 = "000" else
+        INS_SLT             when opcode = "0110011" and funct3 = "010" else
+        INS_SLTU            when opcode = "0110011" and funct3 = "011" else
+        INS_XOR             when opcode = "0110011" and funct3 = "100" else
+        -- INS_SRL            when opcode = "0010011" and funct3 = "101" else
+        INS_OR              when opcode = "0110011" and funct3 = "110" else
+        INS_AND             when opcode = "0110011" and funct3 = "111" else
+        INS_LW              when opcode = "0000011" and funct3 = "010" else
+        INS_ADDi            when opcode = "0010011" and funct3 = "000" else
+        INS_SLTi            when opcode = "0010011" and funct3 = "010" else
+        INS_SLTUi           when opcode = "0010011" and funct3 = "011" else
+        INS_XORi            when opcode = "0010011" and funct3 = "100" else
+        INS_ORi             when opcode = "0010011" and funct3 = "110" else
+        INS_ANDi            when opcode = "0010011" and funct3 = "111" else
+        INS_SLLi            when opcode = "0010011" and funct3 = "001" and funct7 = "0000000" else
+        INS_SRLi            when opcode = "0010011" and funct3 = "101" and funct7 = "0000000" else
+        INS_SRAi            when opcode = "0010011" and funct3 = "101" and funct7 = "0100000" else
+        INS_JALR            when opcode = "1100111" and funct3 = "000" else
+        INS_SW              when opcode = "0100011" and funct3 = "010" else
+        INS_BEQ             when opcode = "1100011" and funct3 = "000" else
+        INS_BNE             when opcode = "1100011" and funct3 = "001" else
+        INS_BLT             when opcode = "1100011" and funct3 = "100" else
+        INS_BGE             when opcode = "1100011" and funct3 = "101" else
+        INS_BLTU            when opcode = "1100011" and funct3 = "110" else
+        INS_BGEU            when opcode = "1100011" and funct3 = "111" else
+        INS_LUI             when opcode = "0110111" else
+        INS_AUIPC           when opcode = "0010111" else
+        INS_JAL             when opcode = "1101111" else
+        Unknown_instruction;
 end control_unit_arch;
 -- A srcs:
 -- 00 -> Rs1
