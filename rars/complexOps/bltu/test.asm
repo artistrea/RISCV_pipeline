@@ -1,6 +1,6 @@
 .data
-.word 10
-.word 4
+.word 10 # number of times it loops
+.word 4  # step
 
 .text
 	lw a0, 0(zero)
@@ -10,6 +10,7 @@
 	nop
 	nop
 	nop
+	sw t1, 0(zero)
 START_LOOP:
 	add t1, t1, a1
 	addi t0, t0, 1
@@ -21,3 +22,4 @@ START_LOOP:
 	nop
 	nop
 	nop
+
