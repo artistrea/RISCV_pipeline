@@ -1,10 +1,10 @@
 .data
-LOOPS: 	.word 10
-STEP:	.word 4
+.word 10
+.word 4
 
 .text
-	lw a0, LOOPS
-	lw a1, STEP
+	lw a0, 0(zero)
+	lw a1, 4(zero)
 	addi t0, zero, 1
 	addi t1, zero, 0
 	nop

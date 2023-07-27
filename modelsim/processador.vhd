@@ -268,7 +268,7 @@ begin
     -- execute
     branchAddress_EX <=
         std_logic_vector(signed(curPC_EX) + signed(imm_EX) + signed(ro2_EX)) when branchSrc_EX = '1'
-        else std_logic_vector(signed(curPC_EX) + signed(imm_EX(30 downto 0) & '0'));
+        else std_logic_vector(signed(curPC_EX) + signed(imm_EX));
 
     
 
@@ -358,7 +358,7 @@ begin
     
     -- TODO: implementar branch direito (hazard)
     shouldBranch_MEM <=
-        '1' when (branchCond_MEM = '1' and ALUZero_MEM = '1') or branchUnc_MEM = '1'
+        '1' when (branchCond_MEM = '1' and ALUZero_MEM = '0') or branchUnc_MEM = '1'
         else '0';
 
     controlRegister_MEM_WB : register32 port map(
