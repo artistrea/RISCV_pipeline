@@ -38,13 +38,26 @@
 	sw t6, 48(zero)
 	sw a0, 52(zero)
 	
+	slt t0, t4, t0 	# -... < 30 (true)
+	or t1, t6, t4 	# 0xe | 0xffc00000
+	srai t2, t4, 21 # 0xfffffffe
+	sltu t3, a2, t4 # 15 < uns(-... )(false)
+
+	# a2 = 15
+	sw t0, 41(a2)
+	sw t1, 45(a2)
+	sw t2, 49(a2)
+	sw t3, 53(a2)
+	
+	
+	
 	
 	
 
 ### Feitas as instruções:
-# ADDi, ORi, XORi, SLTi, SLTUi, ADD, SLLi, ANDi, SRLi, SUB, AND, XOR
+# ADDi, ORi, XORi, SLTi, SLTUi, ADD, SLLi, ANDi, SRLi, SUB, AND, XOR, SLT, OR, AUIPC, SRAi
 
 ### Falta:
-# , , , , , , SLT, OR, , ,
-# , , , SRAi, , SLTu, , AUIPC,
+# , , , , , , , , , ,
+# , , , , , SLTu, , ,
 # JAL, JALR, BEQ, BNE, BLT, BGE, BGEU, BLTU

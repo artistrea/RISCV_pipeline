@@ -249,7 +249,7 @@ begin
         clk <= '1';
         wait for T/2;
         assert data_mem_read_data_DM = x"0000000e"
-            report "data_mem_read_data_DM should be 14, but is " & to_hstring(data_mem_read_data_DM) severity ERROR;
+            report "data_mem_read_data_DM should be 0xe, but is " & to_hstring(data_mem_read_data_DM) severity ERROR;
 
             
         data_address_TB <= "00001101";
@@ -261,6 +261,44 @@ begin
             report "data_mem_read_data_DM should be 0x2064 (8292), but is " & integer'image(
                 to_integer(unsigned(data_mem_read_data_DM))
             ) severity ERROR;
+
+            
+        data_address_TB <= "00001110";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"00000001"
+            report "data_mem_read_data_DM should be 1, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+
+            
+        data_address_TB <= "00001111";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"ffc0000e"
+            report "data_mem_read_data_DM should be 0xffc0000e, but is " & to_hstring(data_mem_read_data_DM) severity ERROR;
+
+        data_address_TB <= "00010000";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"fffffffe"
+            report "data_mem_read_data_DM should be 0xfffffffe, but is " & to_hstring(data_mem_read_data_DM) severity ERROR;
+    
+        
+        data_address_TB <= "00010001";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"00000001"
+            report "data_mem_read_data_DM should be 1, but is " & to_hstring(data_mem_read_data_DM) severity ERROR;
+
 
         report "Finished Testbench" severity NOTE;
         wait;

@@ -162,11 +162,11 @@ begin
         X => curPC_IF,
         Y => curPC_ID
     );
-    instruction_IF <= instruction;
+    
     instructionRegister_IF_ID : register32 port map(
         clk => CLK,
         write_enabled => '1',
-        X => instruction_IF,
+        X => instruction,
         Y => instruction_ID
     );
 
