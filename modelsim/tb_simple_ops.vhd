@@ -107,7 +107,7 @@ begin
         report "Ended testbench setup. Processor running" severity NOTE;
         testbench_controls <= false;
 
-        for i in 0 to 20 loop
+        for i in 0 to 50 loop
             clk <= '0';
             wait for T/2;
             clk <= '1';
@@ -150,25 +150,46 @@ begin
             ) severity ERROR;
 
         
-        -- data_address_TB <= "00000011";
-        -- clk <= '0';
-        -- wait for T/2;
-        -- clk <= '1';
-        -- wait for T/2;
-        -- assert data_mem_read_data_DM = x"00400000"
-        --     report "data_mem_read_data_DM should be 0x00400000, but is " & std_logic_vector'image(data_mem_read_data_DM)
-        --     severity ERROR;
+        data_address_TB <= "00000011";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert data_mem_read_data_DM = x"00400000"
+            report "data_mem_read_data_DM should be 8388608, but is " & 
+                integer'image(to_integer(unsigned(data_mem_read_data_DM)))
+            severity ERROR;
     
     
-        -- data_address_TB <= "00000100";
-        -- clk <= '0';
-        -- wait for T/2;
-        -- clk <= '1';
-        -- wait for T/2;
-        -- assert data_mem_read_data_DM = x"1"
-        --     report "data_mem_read_data_DM should be 1, but is " & integer'image(
-        --         to_integer(unsigned(data_mem_read_data_DM))
-        --     ) severity ERROR;
+        data_address_TB <= "00000100";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert to_integer(unsigned(data_mem_read_data_DM)) = 0
+            report "data_mem_read_data_DM should be 0, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+
+        data_address_TB <= "00000101";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert to_integer(unsigned(data_mem_read_data_DM)) = 1
+            report "data_mem_read_data_DM should be 1, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
+    
+        data_address_TB <= "00000110";
+        clk <= '0';
+        wait for T/2;
+        clk <= '1';
+        wait for T/2;
+        assert to_integer(unsigned(data_mem_read_data_DM)) = 30
+            report "data_mem_read_data_DM should be 30, but is " & integer'image(
+                to_integer(unsigned(data_mem_read_data_DM))
+            ) severity ERROR;
     
 
         report "Finished Testbench" severity NOTE;
