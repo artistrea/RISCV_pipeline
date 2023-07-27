@@ -4,6 +4,9 @@ file_name = input("Enter path and file name from current dir: \n\tExample: ./rar
 with open(file_name, 'r+') as f:
     content = f.readlines()
     n = len(content)
+    if n > 256:
+        print("File has more than 256 lines")
+        exit(1)
     # write to file with "00000000" until line 256
     for i in range(n, 256):
-        f.write("00000000\n")
+        f.write("00000013\n")
